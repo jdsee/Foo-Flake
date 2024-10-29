@@ -1,0 +1,12 @@
+#!/bin/bash
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+# Do not run for rebase or merge commits
+if [ -n "$COMMIT_SOURCE" ]; then
+  exit 0
+fi
+
+LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+echo -e "$LAST_COMMIT_MSG" >> "$COMMIT_MSG_FILE"

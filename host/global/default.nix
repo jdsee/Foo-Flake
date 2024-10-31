@@ -25,9 +25,9 @@
 
   security = {
     pam.services = {
-      hyprlock = {
-        text = "auth include login";
-      };
+      waylock = { };
+      swaylock = { };
+      hyprlock.text = "auth include login";
     };
   };
 

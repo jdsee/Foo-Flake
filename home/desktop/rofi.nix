@@ -8,6 +8,7 @@
       rofi-rbw
       rofi-power-menu
       rofi-emoji
+      rofi-vpn
     ];
     theme = "Arc-Dark";
     font = "GeistMono Nerd Font 12";

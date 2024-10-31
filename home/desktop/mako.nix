@@ -6,9 +6,12 @@
     padding = "10,20";
     anchor = "top-right";
     borderSize = 2;
-    defaultTimeout = 12000;
-    # backgroundColor = "#${colors.base00}dd";
-    # borderColor = "#${colors.base03}dd";
-    # textColor = "#${colors.base05}dd";
+    defaultTimeout = 5000;
+    width = 300;
+    icons = false;
+
+    backgroundColor = "#1e1e2e";
+    textColor = "#cdd6f4";
+    borderColor = "#11111b";
   };
 }

@@ -7,7 +7,7 @@
     ./users/jdsee
 
     ./systemd_boot.nix
-    ./xdg-desktop-portal-wlr.nix
+    ./xdg-desktop-portal.nix
     ./yubikey.nix
 
     ./services/docker.nix
@@ -38,7 +38,6 @@
 
   services = {
     dbus.enable = true;
-    displayManager.sddm.enable = true;
     blueman.enable = true;
     openssh.enable = false;
     udisks2.enable = true;
@@ -62,6 +61,8 @@
   };
 
   hardware = {
+    bluetooth.enable = true;
+
     graphics = {
       enable = true;
       enable32Bit = true;

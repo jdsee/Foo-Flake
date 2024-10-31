@@ -53,8 +53,10 @@
       if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
         . $HOME/.nix-profile/etc/profile.d/nix.sh
       fi
-
       export LAUNCHER=launcher_t4
+      if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
+        exec river
+      fi
     '';
 
     initExtra = ''

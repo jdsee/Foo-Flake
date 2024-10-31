@@ -5,10 +5,9 @@
     ./fonts.nix
     ./gammastep.nix
     ./gtk.nix
-    ./hyprlock
     ./kanata
     ./kanshi.nix
-    ./mako.nix # TODO: Consider replacing with swaync
+    ./mako.nix
     ./river
     ./rofi.nix
     ./waybar
@@ -32,6 +31,7 @@
     nwg-displays
     wtype # automate typing input
     way-displays # Display Output Configurator
+    waylock # Screen-Lock
     ydotool # automate user input (#TODO: why is wtype installed additionally?)
     xwaylandvideobridge
   ];

@@ -40,6 +40,10 @@
           "tray"
         ];
 
+        "river/tags" = {
+          num_tags = 10;
+        };
+
         "hyprland/workspaces" = {
           "active-only" = false;
           "all-outputs" = true;

@@ -44,6 +44,34 @@ window#waybar.empty #window {
 
 .modules-left {}
 
+/* Tags */
+#tags button {
+  background: transparent;
+  color: #6E6A86;
+  box-shadow: none;
+  text-shadow: none;
+  padding: 0px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tags button.occupied {
+  color: #F79B56;
+  border-top: 2px solid #F79B56;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#tags button.focused {
+  color: #d8dee9;
+}
+
+#tags button.urgent {
+  color: #c9545d;
+}
+
+/* Workspaces */
+
 #workspaces button {
   background: transparent;
   color: #6E6A86;

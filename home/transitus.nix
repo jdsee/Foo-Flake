@@ -4,9 +4,8 @@
   imports = [
     ./global.nix
     ./desktop
-    ./desktop/river
-    ./desktop/hyprland
     ./apps/firefox.nix
+    ./apps/obs.nix
   ];
 
   nixpkgs = {
@@ -26,7 +25,8 @@
     pamixer
     playerctl
     signal-desktop
-    zed-editor
+    slack
+    zed-editor # TODO: Move to Home-Manager
   ];
 
 }

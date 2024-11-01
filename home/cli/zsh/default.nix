@@ -6,13 +6,20 @@
     enableCompletion = false; # slows down session start when enabled
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    dotDir = ".config/zsh";
 
     defaultKeymap = "viins";
 
     plugins = [
       {
-        name = pkgs.zsh-nix-shell.pname;
-        src = pkgs.zsh-nix-shell.src;
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "v0.8.0";
+          sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
+        };
       }
       {
         name = pkgs.pure-prompt.pname;
@@ -27,6 +34,7 @@
         src = pkgs.zsh-autopair.src;
       }
       {
+        # FIXME: This is not working (might be related to zsh-vi-mode)
         name = "popman";
         file = "popman.plugin.zsh";
         src = pkgs.fetchFromGitHub {
@@ -35,10 +43,6 @@
           rev = "v0.1.0";
           sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
         };
-      }
-      {
-        name = "custom-functions";
-        src = ./functions/init.zsh;
       }
     ];
 
@@ -53,6 +57,7 @@
     sessionVariables = {
       PATH = "$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.config/rofi/scripts";
       GPG_TTY = "$(tty)";
+      XDG_CONFIG_HOME = ".config";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
       MANPAGER = "nvim +Man!";
       PURE_NODE_ENABLED = 0;
@@ -92,6 +97,9 @@
         # Delay Atuin init until after zsh-vi-mode init to prevent overwriting of keybinds
         zvm_after_init_commands+=(eval "$(${lib.getExe pkgs.atuin} init zsh --disable-up-arrow)")
       fi
+
+      ''${XDG_CONFIG_HOME}/zsh/functions/init.zsh
+      fpath+=''${XDG_CONFIG_HOME}/zsh/functions
 
       # -------------------------------------
       # ↓ Generated ↓
@@ -156,5 +164,12 @@
     options = [
       "--cmd j"
     ];
+  };
+
+  xdg.configFile = {
+    "zsh/functions" = {
+      source = ./functions;
+      recursive = true;
+    };
   };
 }

@@ -9,7 +9,7 @@
     ./kanshi.nix
     ./mako.nix
     ./river
-    ./rofi.nix
+    ./rofi
     ./waybar
     ./wezterm
     ./zathura.nix

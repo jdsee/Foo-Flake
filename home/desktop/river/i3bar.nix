@@ -9,7 +9,7 @@
     "i3bar-river/config.toml" = {
       text = ''
         font = "GeistMono Nerd Font 12"
-        height = 20
+        height = 30
         command = "${pkgs.i3status-rust}/bin/i3status-rs"
 
         [wm.river]

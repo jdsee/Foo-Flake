@@ -25,9 +25,8 @@
     systemd.enable = true; # enables river-session.target, which links to graphical-session.target
     settings = {
       spawn = [
-        "waybar"
-        "nm-applet"
-        "foot -a terminal"
+        "i3bar-river &"
+        "nm-applet &"
       ];
       map = {
         normal = {
@@ -35,11 +34,16 @@
           "Super+Shift E" = "exit";
           "Super+Shift Space" = "toggle-float";
           "Super F" = "toggle-fullscreen";
-          "Super+Alt L" = "spawn waylock";
+          "Super+Alt R" = "spawn ~/$${XDG_CONFIG_HOME}/river/init"; # TODO: Add script to reload river (kill bar etc.)
+          "Super+Alt L" = "spawn waylock"; # TODO: Use relaxed colors
+
+          # Rofi
+          "Super Space" = "spawn 'rofi -show drun'";
+          "Super+Control Space" = "spawn 'rofi-pass'";
+          "Super+Control V" = "spawn 'rofi-vpn'";
 
           # Applications
           "Super Return" = "spawn 'foot'";
-          "Super Space" = "spawn 'rofi -show drun'";
           "Super b" = "spawn 'firefox'";
 
           # Move focus
@@ -81,8 +85,11 @@
 
       riverctl map normal Super O focus-previous-tags
 
-      riverctl map normal Super m focus-previous-tags
-      riverctl map normal Super , focus-previous-tags
+      riverctl map normal Super N focus-output next
+      riverctl map normal Super P focus-output previous
+      riverctl map normal Super+Control N send-to-output -current-tags next
+      riverctl map normal Super+Control P send-to-output -current-tags previous
+
 
       # Media-Keys
       for mode in normal locked
@@ -119,6 +126,7 @@
 
       # Rules
       riverctl rule-add -app-id firefox ssd
+      riverctl rule-add -app-id firefox -title '*Bitwarden*' float # FIXME: This isn't working yet
       riverctl rule-add -title "MainPicker" float
 
       # Layout
@@ -139,7 +147,7 @@
           --border-width-smart-gaps      0           \
           --border-color-focused         "0x93a1a1"  \
           --border-color-focused-monocle "0x586e75"  \
-          --border-color-unfocused       "0x586e75"  \
+          --border-color-unfocused       "0x3b3b3b"  \
           --log-threshold                info        \
          > "/tmp/wideriver.$${XDG_VTNR}.$${USER}.log" 2>&1 &
 

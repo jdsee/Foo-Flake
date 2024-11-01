@@ -10,7 +10,7 @@
       rofi-emoji
       rofi-vpn
     ];
-    theme = "Arc-Dark";
+    theme = "minimal";
     font = "GeistMono Nerd Font 12";
     terminal = "${pkgs.wezterm}";
     cycle = true;
@@ -26,11 +26,13 @@
   home.packages = with pkgs; [
     pinentry-rofi
     rofi-rbw
+    rofi-vpn
     rofi-power-menu
     bitwarden-menu
   ];
 
   xdg.configFile = {
+    "rofi/minimal.rasi".source = ./minimal.rasi;
     "rofi/rofi-themes-collection" = {
       source = pkgs.fetchFromGitHub {
         owner = "newmanls";

@@ -35,6 +35,7 @@
             }
             {
               criteria = "Dell Inc. DELL U3219Q 8P7R413";
+              position = "1080,240";
             }
           ];
           exec = [

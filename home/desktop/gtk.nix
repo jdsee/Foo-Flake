@@ -23,9 +23,14 @@
       package = pkgs.whitesur-gtk-theme;
     };
 
+    cursorTheme = {
+      name = "WhiteSur-Dark";
+      package = pkgs.whitesur-cursors;
+    };
+
     iconTheme = {
-      name = "Papirus";
-      package = pkgs.papirus-icon-theme;
+      name = "WhiteSur-dark";
+      package = pkgs.whitesur-icon-theme;
     };
   };
 

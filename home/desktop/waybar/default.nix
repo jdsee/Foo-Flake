@@ -35,8 +35,8 @@
           "custom/separator#dot-line"
           "pulseaudio"
           "custom/separator#dot-line"
-          "custom/swaync"
-          "custom/separator#dot-line"
+          # "custom/swaync"
+          # "custom/separator#dot-line"
           "tray"
         ];
 

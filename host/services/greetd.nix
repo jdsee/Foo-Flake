@@ -1,9 +1,17 @@
-{ ... }:
+{ pkgs, lib, ... }:
+let
+  cage = lib.getExe pkgs.cage;
+  gtkgreet = lib.getExe pkgs.greetd.gtkgreet;
+in
 {
-  programs.regreet.enable = true;
-
   services.greetd = {
     enable = true;
+    settings = {
+      default_session = {
+        command = "${cage} -d -s -m last ${gtkgreet}";
+        user = "jdsee";
+      };
+    };
   };
 
   environment.etc."greetd/environments".text = ''

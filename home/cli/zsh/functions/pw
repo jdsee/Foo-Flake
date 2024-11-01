@@ -1,0 +1,4 @@
+function pw () {
+  gopass ls -f | fzf | xargs gopass -c
+}
+

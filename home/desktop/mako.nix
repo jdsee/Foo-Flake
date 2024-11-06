@@ -17,5 +17,10 @@
     backgroundColor = "#1e1e2e";
     textColor = "#cdd6f4";
     borderColor = "#11111b";
+
+    extraConfig = ''
+      [mode=mute]
+      invisible=1
+    '';
   };
 }

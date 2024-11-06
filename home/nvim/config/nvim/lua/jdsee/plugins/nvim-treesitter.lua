@@ -2,7 +2,7 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
 return {
-   'nvim-treesitter/nvim-treesitter',
+  'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-context',
@@ -12,7 +12,10 @@ return {
   lazy = false,
   config = function()
     require('nvim-treesitter.configs').setup {
-      ensure_installed = { 'vim', 'vimdoc' },
+      ensure_installed = {
+        'vim', 'vimdoc', 'lua', 'luadoc',
+        'html', 'javascript', 'typescript', 'svelte', 'vue', 'tsx', 'rescript', 'css', 'xml', 'php', 'markdown'
+      },
       highlight = {
         enable = true,
       },
@@ -36,7 +39,7 @@ return {
             ['g>f'] = '@function.inner',
           },
           swap_previous = {
-            ['g<<'] = '@parameter.inner',
+            ['g<<'] = '@parameter.outer',
             ['g<f'] = '@function.outer',
           },
         },

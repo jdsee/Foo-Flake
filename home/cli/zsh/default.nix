@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   programs.zsh = {
@@ -6,7 +6,6 @@
     enableCompletion = false; # slows down session start when enabled
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    dotDir = ".config/zsh";
 
     defaultKeymap = "viins";
 
@@ -41,8 +40,12 @@
           owner = "jdsee";
           repo = "popman";
           rev = "v0.1.0";
-          sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
+          sha256 = "YEJ1BCKXVlbSTwssj1r1ld5Kc6znxxoJ80A3Zniy6Mo=";
         };
+      }
+      {
+        name = "custom-functions";
+        src = ./functions;
       }
     ];
 
@@ -57,7 +60,6 @@
     sessionVariables = {
       PATH = "$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.config/rofi/scripts";
       GPG_TTY = "$(tty)";
-      XDG_CONFIG_HOME = ".config";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
       MANPAGER = "nvim +Man!";
       PURE_NODE_ENABLED = 0;
@@ -98,8 +100,9 @@
         zvm_after_init_commands+=(eval "$(${lib.getExe pkgs.atuin} init zsh --disable-up-arrow)")
       fi
 
-      ''${XDG_CONFIG_HOME}/zsh/functions/init.zsh
-      fpath+=''${XDG_CONFIG_HOME}/zsh/functions
+      # TODO: These functionsb are not loaded somehow
+      # fpath+="$XDG_CONFIG_HOME/zsh/functions"
+      # $XDG_CONFIG_HOME/zsh/functions/init.zsh
 
       # -------------------------------------
       # ↓ Generated ↓
@@ -166,10 +169,12 @@
     ];
   };
 
-  xdg.configFile = {
-    "zsh/functions" = {
-      source = ./functions;
-      recursive = true;
+  xdg = {
+    configFile = {
+      "zsh/functions" = {
+        source = ./functions;
+        recursive = true;
+      };
     };
   };
 }

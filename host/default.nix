@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ ... }:
 
 {
   imports = [
@@ -6,9 +6,11 @@
     ./global
     ./users/jdsee
 
-    ./systemd_boot.nix
+    ./systemd-boot.nix
     ./xdg-desktop-portal.nix
     ./yubikey.nix
+    ./nvidia.nix
+    ./obs-virtual-cam.nix
 
     ./services/docker.nix
     ./services/greetd.nix
@@ -45,14 +47,13 @@
     printing.enable = true;
 
     xserver = {
-      enable = true;
+      enable = false;
       videoDrivers = [ "nvidia" ];
       xkb = {
         layout = "us";
         variant = "";
       };
     };
-
   };
 
   systemd.services = {
@@ -62,30 +63,5 @@
 
   hardware = {
     bluetooth.enable = true;
-
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-      ];
-    };
-
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      open = false;
-      nvidiaSettings = true;
-      modesetting.enable = true;
-      powerManagement = {
-        enable = true;
-        finegrained = false;
-      };
-      prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-    };
   };
 }

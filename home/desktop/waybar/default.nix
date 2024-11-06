@@ -11,7 +11,7 @@
         mod = "dock";
         layer = "top";
         position = "top";
-        height = 28;
+        height = 40;
         exclusive = true;
         passthrough = false;
         gtk-layer-shell = true;
@@ -35,8 +35,8 @@
           "custom/separator#dot-line"
           "pulseaudio"
           "custom/separator#dot-line"
-          # "custom/swaync"
-          # "custom/separator#dot-line"
+          "custom/mako"
+          "custom/separator#dot-line"
           "tray"
         ];
 
@@ -44,54 +44,14 @@
           num_tags = 10;
         };
 
-        "hyprland/workspaces" = {
-          "active-only" = false;
-          "all-outputs" = true;
-          "format" = "{icon}";
-          "show-special" = false;
-          "on-click" = "activate";
-          "on-scroll-up" = "hyprctl dispatch workspace e+1";
-          "on-scroll-down" = "hyprctl dispatch workspace e-1";
-          "persistent-workspaces" = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-            "5" = [ ];
-          };
-          "format-icons" = {
-            "active" = "";
-            "default" = "";
-          };
+        "river/window" = {
+          "format" = "{}";
         };
 
-        "hyprland/workspaces#roman" = {
-          "active-only" = false;
-          "all-outputs" = true;
-          "format" = "{icon}";
-          "show-special" = false;
-          "on-click" = "activate";
-          "on-scroll-up" = "hyprctl dispatch workspace e+1";
-          "on-scroll-down" = "hyprctl dispatch workspace e-1";
-          "persistent-workspaces" = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-            "5" = [ ];
-          };
-          "format-icons" = {
-            "1" = "I";
-            "2" = "II";
-            "3" = "III";
-            "4" = "IV";
-            "5" = "V";
-            "6" = "VI";
-            "7" = "VII";
-            "8" = "VIII";
-            "9" = "IX";
-            "10" = "X";
-          };
+        "river/layout" = {
+          "format" = "{}";
+          "min-length" = 4;
+          "align" = "right";
         };
 
         "group/motherboard" = {
@@ -100,7 +60,6 @@
             "cpu"
             "memory"
             "temperature"
-            "disk"
           ];
         };
 
@@ -241,43 +200,6 @@
             "█"
           ];
           "on-click-right" = "gnome-system-monitor";
-        };
-
-        "disk" = {
-          "interval" = 30;
-          # "format" = "󰋊";
-          "path" = "/";
-          # "format-alt-click" = "click";
-          "format" = "{percentage_used}% 󰋊";
-          # "tooltip" = true;
-          "tooltip-format" = "{used} used out of {total} on {path} ({percentage_used}%)";
-        };
-
-        "hyprland/language" = {
-          "format" = "Lang: {}";
-          "format-en" = "US";
-          "format-tr" = "Korea";
-          "keyboard-name" = "at-translated-set-2-keyboard";
-          "on-click" = "hyprctl switchxkblayout $SET_KB next";
-        };
-
-        "hyprland/submap" = {
-          "format" = "<span style=\"italic\">  {}</span>"; #  Icon: expand-arrows-alt
-          "tooltip" = false;
-        };
-
-        "hyprland/window" = {
-          "format" = "{}";
-          "max-length" = 40;
-          "separate-outputs" = true;
-          "offscreen-css" = true;
-          "offscreen-css-text" = "(inactive)";
-          "rewrite" = {
-            "(.*) — Mozilla Firefox" = " $1";
-            "(.*) - fish" = "> [$1]";
-            "(.*) - zsh" = "> [$1]";
-            "(.*) - $term" = "> [$1]";
-          };
         };
 
         "idle_inhibitor" = {
@@ -757,7 +679,21 @@
           "interval" = 86400; #  once every day
           "tooltip" = true;
         };
+
+        "custom/mako" = {
+          "exec" = "$XDG_CONFIG_HOME/mako/status.sh";
+          "interval" = 2;
+          "format" = "{}";
+          "return-type" = "json";
+        };
       };
+    };
+  };
+
+  xdg.configFile = {
+    "mako/status.sh" = {
+      source = ./mako_status.sh;
+      executable = true;
     };
   };
 }

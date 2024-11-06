@@ -34,7 +34,7 @@ configuration {
   padding: 0;
   spacing: 0;
 
-  bg: #151515;
+  bg: rgba(21, 21, 21, 0.9);
   bg-alt: #232323;
   fg: #FFFFFF;
   fg-alt: #424242;

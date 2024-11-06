@@ -29,9 +29,9 @@
     nodePackages_latest.eslint
     nodePackages_latest.typescript-language-server
     ocamlPackages.ocaml-lsp
-    phpactor
     tailwindcss-language-server
     texlab
+    tree-sitter
     vscode-langservers-extracted # html/css/json/eslint
     yaml-language-server
   ];

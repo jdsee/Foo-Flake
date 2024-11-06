@@ -7,7 +7,6 @@
     ./gpg.nix
     ./tmux
     ./vim.nix
-    ./ideavim
     ./zsh
   ];
 
@@ -26,7 +25,7 @@
     };
 
     yazi = {
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
       settings = {
         showHidden = true;
@@ -42,7 +41,6 @@
     packages = with pkgs; [
       file
       lsof
-      # networkmanagerapplet
 
       fd # Better find
       httpie # Better curl

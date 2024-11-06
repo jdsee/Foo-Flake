@@ -5,21 +5,18 @@
 /* --- 👍 designed by https://github.com/Krautt  👍 --- */
 
 * {
-  background: #323232;
-  color: #d3d3d3;
-  font-family: "JetBrains Mono Nerd Font";
-  font-weight: bold;
+  font-family: "Geist Mono Nerd Font";
+  font-weight: normal;
   min-height: 0;
-  /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-  font-size: 98%;
+  font-size: 100%;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-  padding: 1px;
+  padding: 0 5px 0 5px;
 }
 
 window#waybar {
-  background: #323232;
-  border-radius: 1px;
+  background: rgba(40, 40, 40, 0.9);
   color: #d3d3d3;
+  border-radius: 0;
 }
 
 window#waybar.hidden {
@@ -46,27 +43,33 @@ window#waybar.empty #window {
 
 /* Tags */
 #tags button {
-  background: transparent;
-  color: #6E6A86;
   box-shadow: none;
   text-shadow: none;
+  border-radius: 0;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 13px;
+  padding-right: 13px;
+  color: #696969;
 }
 
 #tags button.occupied {
-  color: #F79B56;
-  border-top: 2px solid #F79B56;
-  padding-left: 8px;
-  padding-right: 8px;
+  color: #d3d3d3;
 }
 
 #tags button.focused {
-  color: #d8dee9;
+  border-top: 2px solid #F79B56;
 }
 
 #tags button.urgent {
+  border-top: 2px solid #c9545d;
+}
+
+/* Mako */
+#custom-mako {
+  padding-top: 7px;
+}
+
+#custom-mako.muted {
   color: #c9545d;
 }
 
@@ -220,4 +223,3 @@ window#waybar.empty #window {
   border-radius: 5px;
   background-color: wheat;
 }
-

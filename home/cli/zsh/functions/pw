@@ -1,4 +1,4 @@
-function pw () {
-  gopass ls -f | fzf | xargs gopass -c
-}
+# Search for password and copy to clipboard
+
+gopass ls -f | fzf | xargs gopass -c
 

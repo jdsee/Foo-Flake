@@ -2,8 +2,9 @@
 
 {
   imports = [
+    ../rofi
+    ../wallpaper
     ../waybar
-    ./i3bar.nix
   ];
 
   home.packages = with pkgs; [
@@ -20,13 +21,25 @@
     mimeType = [ ];
   };
 
+  xdg.configFile = {
+    "river/reload" = {
+      source = ./reload_river.sh;
+      executable = true;
+    };
+    "river/focus-view" = {
+      source = ./focus-view.sh;
+      executable = true;
+    };
+  };
+
   wayland.windowManager.river = {
     enable = true;
     systemd.enable = true; # enables river-session.target, which links to graphical-session.target
     settings = {
       spawn = [
-        "i3bar-river &"
-        "nm-applet &"
+        "waybar"
+        "nm-applet"
+        "flameshot"
       ];
       map = {
         normal = {
@@ -34,7 +47,7 @@
           "Super+Shift E" = "exit";
           "Super+Shift Space" = "toggle-float";
           "Super F" = "toggle-fullscreen";
-          "Super+Alt R" = "spawn ~/$${XDG_CONFIG_HOME}/river/init"; # TODO: Add script to reload river (kill bar etc.)
+          "Super+Alt R" = "spawn $XDG_CONFIG_HOME/river/reload";
           "Super+Alt L" = "spawn waylock"; # TODO: Use relaxed colors
 
           # Rofi
@@ -45,6 +58,10 @@
           # Applications
           "Super Return" = "spawn 'foot'";
           "Super b" = "spawn 'firefox'";
+
+          # Notifications
+          "Super D" = "spawn 'makoctl dismiss'";
+          "Super+Alt D" = "spawn 'makoctl mode -t mute'";
 
           # Move focus
           "Super H" = "focus-view left";
@@ -63,10 +80,21 @@
           "Super+Shift J" = "resize vertical -100";
           "Super+Shift K" = "resize vertical 100";
           "Super+Shift L" = "resize horizontal 100";
+
+          # Screenshots
+          "Super+Shift S" = "spawn 'flameshot gui'";
+          "Super+Control S" = "spawn 'flameshot screen'";
+          "Super+Control+Shift S" = "spawn 'flameshot full'";
         };
       };
     };
     extraConfig = ''
+      # Environment
+      export WLR_NO_HARDWARE_CURSORS=1
+      PATH="$XDG_CONFIG_HOME/river:$PATH"
+
+      riverctl spawn "wbg $XDG_CONFIG_HOME/wallpaper/Road-Trip_2560x1440.png &"
+
       # Mouse mappings
       riverctl map-pointer normal Super BTN_LEFT    move-view
       riverctl map-pointer normal Super BTN_RIGHT   resize-view
@@ -75,9 +103,9 @@
       # Tags / Workspaces
       for i in $(seq 1 10)
       do
-        key=$(("$i" % 10))
-        tags=$((1 << ("$i" - 1)))
-        riverctl map normal Super         "$key" set-focused-tags "$tags"
+        key=$(("$i " % 10))
+        tags=$((1 << ("$i " - 1)))
+        riverctl map normal Super         "$key" spawn "focus-view $i"
         riverctl map normal Super+Shift   "$key" set-view-tags    "$tags"
         riverctl map normal Super+Alt     "$key" toggle-focused-tags "$tags"
         riverctl map normal Super+Control "$key" toggle-view-tags "$tags"
@@ -121,8 +149,9 @@
       riverctl input 'pointer-*' natural-scroll enabled
       riverctl input 'pointer-*' tap enabled
       riverctl keyboard-layout \
-        -options "ctrl:nocaps, grp:alt_space_toggle, altwin:swap_alt_win, shift:both_capslock_cancel" \
-        "us,us"
+        -options " ctrl:nocaps, grp:alt_space_toggle, altwin:swap_alt_win, shift:both_capslock_cancel " \
+        "
+            us,us"
 
       # Rules
       riverctl rule-add -app-id firefox ssd
@@ -158,3 +187,5 @@
   };
 
 }
+
+

@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
+  home.pointerCursor = {
+    name = "WhiteSur-cursors";
+    package = pkgs.whitesur-cursors;
+  };
   gtk = {
     enable = true;
     font = {
@@ -24,7 +26,7 @@
     };
 
     cursorTheme = {
-      name = "WhiteSur-Dark";
+      name = "WhiteSur-cursors";
       package = pkgs.whitesur-cursors;
     };
 

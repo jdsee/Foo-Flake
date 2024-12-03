@@ -1,14 +1,13 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.greetd = {
-    enable = true;
+    enable = false;
     settings = {
       default_session.user = "jdsee";
     };
   };
 
   programs.regreet = {
-    enable = true;
+    enable = false;
     cageArgs = [ "-d" "-s" "-m" "last" ];
     settings = {
       background = {

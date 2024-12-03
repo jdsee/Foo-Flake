@@ -1,6 +1,10 @@
-{ pkgs, lib, ... }:
+{ pkgs
+, lib
+, ...
+}:
 let
-  lockCmd = lib.getExe pkgs.waylock;
+  waylock = lib.getExe pkgs.waylock;
+  lockCmd = "${waylock} -init-color 0x374231 -input-color 0x808b5d -ignore-empty-password";
 in
 {
   home.packages = with pkgs; [
@@ -25,15 +29,15 @@ in
     ];
     timeouts = [
       {
-        timeout = 285;
+        timeout = 400;
         command = "notify-send 'Screen will be locked in a moment'";
       }
       {
-        timeout = 300; # 5 min
+        timeout = 420; # 7 min
         command = lockCmd;
       }
       {
-        timeout = 380; # 5.5 min
+        timeout = 480; # 8 min
         command = "wlopm --off '*'";
         resumeCommand = "wlopm --on '*'";
       }

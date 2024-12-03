@@ -1,6 +1,6 @@
 # Generate .gitignore
 # usage example: `ignore ocaml linux macos`
 
-local IFS=,
+IFS=,
 curl "https://www.toptal.com/developers/gitignore/api/$*" >> .gitignore
 

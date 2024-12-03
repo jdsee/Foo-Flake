@@ -1,6 +1,9 @@
-{ lib, pkgs, config, outputs, ... }:
-
-{
+{ lib
+, pkgs
+, config
+, outputs
+, ...
+}: {
   imports = [
     ./cli
     ./nvim
@@ -10,7 +13,7 @@
     overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
@@ -29,7 +32,6 @@
 
   programs = {
     home-manager.enable = true;
-    git.enable = true;
   };
 
   home = {

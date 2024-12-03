@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
     ./flameshot.nix
     ./fonts.nix
@@ -8,9 +7,11 @@
     ./gtk.nix
     ./kanshi.nix
     ./mako.nix
-    ./river
     ./rbw.nix
+    ./river
     ./swayidle.nix
+    ./tofi
+    ./wayland-pipewire-idle-inhibit.nix
   ];
 
   home.sessionVariables = {

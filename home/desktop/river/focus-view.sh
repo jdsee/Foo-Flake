@@ -2,10 +2,11 @@
 
 TARGET=$1
 
+target_tags=$((1 << ("$TARGET" - 1)))
 enabled_outputs=$(wlr-randr --json | jq '[.[] | select(.enabled == true)] | length')
 
 if [ "$enabled_outputs" == 1 ]; then
-  echo "riverctl set-focused-tags $TARGET"
+  riverctl set-focused-tags $target_tags
 fi
 
 tag_output_map[1]="DP-4"
@@ -19,7 +20,6 @@ tag_output_map[8]="DP-3"
 tag_output_map[9]="DP-3"
 tag_output_map[10]="DP-3"
 
-target_tags=$((1 << ("$TARGET" - 1)))
 target_output="${tag_output_map[$TARGET]}"
 output_exists=$(
   wlr-randr --json |

@@ -4,8 +4,8 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     search_paths=$(find ~/projects -mindepth 2 -maxdepth 2 -type d)
-    search_paths+=("\n${HOME}/notes")
-    selected=$(find ~/projects -mindepth 2 -maxdepth 2 -type d | fzf)
+    search_paths+=("\n${HOME}/coffee-notes")
+    selected=$(find ~/projects -mindepth 2 -maxdepth 2 -type d | fzf --layout=reverse --preview "ls -la {}" --preview-window=right:50%)
 fi
 
 if [[ -z $selected ]]; then

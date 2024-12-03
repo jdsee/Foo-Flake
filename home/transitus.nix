@@ -1,17 +1,22 @@
-{ pkgs, ... }:
-
+{ pkgs, inputs, ... }:
 let
   apps = with pkgs; [
+    google-chrome
+    ferdium
     signal-desktop
+    element-desktop
     slack
     youtube-music
-    zed-editor # TODO: Move to Home-Manager
   ];
   utils = with pkgs; [
     bitwarden
     brightnessctl
     gopass
+    gparted
+    ntfs3g
+    exfatprogs
     lswt # List wayland toplevels
+    slurp
     networkmanagerapplet
     pamixer
     playerctl
@@ -24,8 +29,9 @@ in
     ./lang/c.nix
     ./apps/firefox.nix
     ./apps/obs.nix
+    ./apps/jetbrains
     ./apps/zathura.nix
-    ./apps/intellij
+    ./apps/zed.nix
   ];
 
   home.packages = apps ++ utils;

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
@@ -40,6 +38,15 @@
       conflicts = "!grep -lr '<<<<<<<' .";
       clone-multibranch = "!sh ~/.config/git/clone_bare_for_worktrees.sh";
       rebase-last = "!git rebase --interactive --autostash HEAD~$1";
+      inc-patch = ''
+        !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 "." $2 "." ($3 + 1) }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
+      '';
+      inc-minor = ''
+        !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 "." ($2 + 1) ".0" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
+      '';
+      inc-major = ''
+        !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print ($1 + 1) ".0.0" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
+      '';
     };
     extraConfig = {
       core.editor = "nvim";
@@ -87,6 +94,10 @@
     };
   };
 
+  home.packages = with pkgs; [
+    glab
+  ];
+
   programs.gh = {
     enable = true;
     gitCredentialHelper = {
@@ -110,6 +121,3 @@
     executable = true;
   };
 }
-
-
-

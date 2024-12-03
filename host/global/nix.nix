@@ -1,6 +1,8 @@
-{ inputs, lib, config, ... }:
-
-{
+{ inputs
+, lib
+, config
+, ...
+}: {
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake

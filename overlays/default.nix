@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   # Makes packages from the stable channel available with `pkgs.stable`
   stable-packages = final: _prev: {
     stable = import inputs.nixpkgs-stable {
@@ -9,7 +8,6 @@
   };
 
   modifications = final: prev: {
-
     # EXAMPLE:
     #
     # <modified-pkg> = prev.<pkg>.overrideAttrs (old: rec {
@@ -21,6 +19,17 @@
     #     sha256 = "sha256-jkGcaghCP4oqw280pLt9XCJEZDZvb9o1sK0grdy/D7s=";
     #   };
     # });
+
+    tmux-31c = prev.tmux.overrideAttrs (old: rec {
+      version = "3.1c";
+      patches = [ ];
+      src = final.fetchFromGitHub {
+        owner = "tmux";
+        repo = "tmux";
+        rev = version;
+        sha256 = "sha256-jkGcaghCP4oqw280pLt9XCJEZDZvb9o1sK0grdy/D7s=";
+      };
+    });
 
     flameshot-grim = prev.flameshot.overrideAttrs (oldAttrs: {
       src = final.fetchFromGitHub {

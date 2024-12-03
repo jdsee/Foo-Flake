@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     libnotify
   ];
@@ -8,7 +7,7 @@
     enable = true;
     font = "GeistMono Nerd Font 12";
     padding = "10,20";
-    anchor = "top-right";
+    anchor = "top-left";
     borderSize = 2;
     defaultTimeout = 5000;
     width = 300;

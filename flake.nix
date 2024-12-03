@@ -10,34 +10,34 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xremap-flake.url = "github:xremap/nix-flake";
+    systems.url = "github:nix-systems/default";
+    sops-nix.url = "github:Mic92/sops-nix";
+
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
 
   outputs =
-    inputs @ { self
-    , nixpkgs
-    , home-manager
-    , flake-utils
-    , xremap-flake
-    , ...
-    }:
+    inputs @ { self, nixpkgs, home-manager, systems, sops-nix, ... }:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      packages = nixpkgs.legacyPackages.${system};
-      formatter = nixpkgs.legacyPackages.${system}.alejandra;
+      packages.${system}.default = pkgs;
+      formatter.${system} = pkgs.nixpkgs-fmt;
       overlays = import ./overlays { inherit inputs; };
 
       # nixos-rebuild switch --flake .#your-hostname
-      nixosConfigurations = {
+      nixosConfigurations = rec {
+        default = transitus;
+
         transitus = nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./host
-            xremap-flake.nixosModules.default
+            sops-nix.nixosModules.sops
           ];
         };
       };
@@ -48,7 +48,10 @@
           system = system;
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/jdsee/transitus.nix ];
+          modules = [
+            ./home/jdsee/transitus.nix
+            inputs.wayland-pipewire-idle-inhibit.homeModules.default
+          ];
         };
       };
     };

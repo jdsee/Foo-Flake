@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   services.kanshi = {
     enable = true;
     systemdTarget = "graphical-session.target";
@@ -35,7 +34,7 @@
             }
             {
               criteria = "Dell Inc. DELL U3219Q 8P7R413";
-              position = "1080,240";
+              position = "1080,0";
             }
           ];
           exec = [

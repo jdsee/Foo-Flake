@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   home.sessionVariables.TERMINAL = "foot";
 
   programs.foot = {

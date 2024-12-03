@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   imports = [
     ../rofi
     ../wallpaper
@@ -30,6 +28,18 @@
       source = ./focus-view.sh;
       executable = true;
     };
+    "river/send-view" = {
+      source = ./send-view.sh;
+      executable = true;
+    };
+    "river/nvim-input" = {
+      source = ./nvim-input.sh;
+      executable = true;
+    };
+    "river/nvim-edit" = {
+      source = ./nvim-edit.sh;
+      executable = true;
+    };
   };
 
   wayland.windowManager.river = {
@@ -44,16 +54,20 @@
       map = {
         normal = {
           "Super W" = "close";
-          "Super+Shift E" = "exit";
+          "Super+Alt E" = "exit";
           "Super+Shift Space" = "toggle-float";
           "Super F" = "toggle-fullscreen";
           "Super+Alt R" = "spawn $XDG_CONFIG_HOME/river/reload";
-          "Super+Alt L" = "spawn waylock"; # TODO: Use relaxed colors
+          "Super+Alt L" = "spawn 'waylock -init-color 0x374231 -input-color 0x808b5d -ignore-empty-password'";
+          "Super E" = "spawn $XDG_CONFIG_HOME/river/nvim-input";
+          "Super+Shift E" = "spawn $XDG_CONFIG_HOME/river/nvim-edit";
 
           # Rofi
-          "Super Space" = "spawn 'rofi -show drun'";
-          "Super+Control Space" = "spawn 'rofi-pass'";
-          "Super+Control V" = "spawn 'rofi-vpn'";
+          "Super Space" = "spawn 'tofi-drun | xargs -I _ riverctl spawn _'";
+          "Super+Control Space" = "spawn 'nu ${../tofi/tofi-pass.nu}'";
+          "Super+Control V" = "spawn 'nu ${../tofi/tofi-nm.nu} vpn'";
+          "Super+Control W" = "spawn 'nu ${../tofi/tofi-nm.nu} wifi'";
+          "Super+Control B" = "spawn 'nu ${../tofi/tofi-bt.nu}'";
 
           # Applications
           "Super Return" = "spawn 'foot'";
@@ -70,16 +84,22 @@
           "Super L" = "focus-view right";
 
           # Swap views
-          "Super+Control H" = "swap left";
-          "Super+Control J" = "swap down";
-          "Super+Control K" = "swap up";
-          "Super+Control L" = "swap right";
+          "Super+Shift H" = "swap left";
+          "Super+Shift J" = "swap down";
+          "Super+Shift K" = "swap up";
+          "Super+Shift L" = "swap right";
 
           # Resize focused view
-          "Super+Shift H" = "resize horizontal -100";
-          "Super+Shift J" = "resize vertical -100";
-          "Super+Shift K" = "resize vertical 100";
-          "Super+Shift L" = "resize horizontal 100";
+          "Super+Control H" = "resize horizontal -100";
+          "Super+Control J" = "resize vertical -100";
+          "Super+Control K" = "resize vertical 100";
+          "Super+Control L" = "resize horizontal 100";
+
+          # Snap
+          "Super+Control+Shift H" = "snap left";
+          "Super+Control+Shift J" = "snap down";
+          "Super+Control+Shift K" = "snap up";
+          "Super+Control+Shift L" = "snap right";
 
           # Screenshots
           "Super+Shift S" = "spawn 'flameshot gui'";
@@ -91,7 +111,6 @@
     extraConfig = ''
       # Environment
       export WLR_NO_HARDWARE_CURSORS=1
-      PATH="$XDG_CONFIG_HOME/river:$PATH"
 
       riverctl spawn "wbg $XDG_CONFIG_HOME/wallpaper/Road-Trip_2560x1440.png &"
 
@@ -105,8 +124,8 @@
       do
         key=$(("$i " % 10))
         tags=$((1 << ("$i " - 1)))
-        riverctl map normal Super         "$key" spawn "focus-view $i"
-        riverctl map normal Super+Shift   "$key" set-view-tags    "$tags"
+        riverctl map normal Super         "$key" spawn "$XDG_CONFIG_HOME/river/focus-view $i"
+        riverctl map normal Super+Shift   "$key" spawn "$XDG_CONFIG_HOME/river/send-view $i"
         riverctl map normal Super+Alt     "$key" toggle-focused-tags "$tags"
         riverctl map normal Super+Control "$key" toggle-view-tags "$tags"
       done
@@ -115,8 +134,8 @@
 
       riverctl map normal Super N focus-output next
       riverctl map normal Super P focus-output previous
-      riverctl map normal Super+Control N send-to-output -current-tags next
-      riverctl map normal Super+Control P send-to-output -current-tags previous
+      riverctl map normal Super+Shift N send-to-output -current-tags next
+      riverctl map normal Super+Shift P send-to-output -current-tags previous
 
 
       # Media-Keys
@@ -138,6 +157,14 @@
           riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
       done
 
+      riverctl map normal None F2 spawn 'playerctl previous'
+      riverctl map normal None F3 spawn 'playerctl play-pause'
+      riverctl map normal None F4 spawn 'playerctl next'
+
+      riverctl map normal None F6 spawn 'pamixer -d 5'
+      riverctl map normal None F7 spawn 'pamixer --toggle-mute'
+      riverctl map normal None F8 spawn 'pamixer -i 5'
+
       # General
       riverctl default-attach-mode below
       riverctl focus-follows-cursor normal
@@ -150,13 +177,17 @@
       riverctl input 'pointer-*' tap enabled
       riverctl keyboard-layout \
         -options " ctrl:nocaps, grp:alt_space_toggle, altwin:swap_alt_win, shift:both_capslock_cancel " \
-        "
-            us,us"
+        "us,us"
 
       # Rules
       riverctl rule-add -app-id firefox ssd
       riverctl rule-add -app-id firefox -title '*Bitwarden*' float # FIXME: This isn't working yet
       riverctl rule-add -title "MainPicker" float
+      riverctl rule-add -app-id nvim-input float
+      riverctl rule-add -app-id dev.zed.Zed ssd
+      riverctl rule-add -app-id org.pulseaudio.pavucontrol ssd
+      riverctl rule-add -app-id gpartedbin ssd
+      riverctl rule-add -app-id .blueman-manager-wrapped ssd
 
       # Layout
       riverctl default-layout wideriver
@@ -185,7 +216,4 @@
       systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr wireplumber
     '';
   };
-
 }
-
-

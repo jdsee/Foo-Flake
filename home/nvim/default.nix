@@ -1,13 +1,13 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # TODO: Move Neovim config to separate flake
 
   programs.neovim = {
     enable = true;
     defaultEditor = true;
 
-    plugins = with pkgs; [
-      vimPlugins.nvim-treesitter.withAllGrammars
+    plugins = with pkgs.vimPlugins; [
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-parsers.nu
     ];
 
     viAlias = true;
@@ -21,17 +21,24 @@
     dockerfile-language-server-nodejs
     elmPackages.elm-language-server
     kotlin-language-server
+    lemminx
     lua-language-server
     marksman
     nil
     nixpkgs-fmt
+    next-ls
     nodePackages_latest.bash-language-server
     nodePackages_latest.eslint
     nodePackages_latest.typescript-language-server
     ocamlPackages.ocaml-lsp
+    postgres-lsp
+    sqls
     tailwindcss-language-server
     texlab
     tree-sitter
+    terraform-ls
+    ruff
+    pyright
     vscode-langservers-extracted # html/css/json/eslint
     yaml-language-server
   ];

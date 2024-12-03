@@ -12,7 +12,7 @@
     ];
     theme = "minimal";
     font = "GeistMono Nerd Font 12";
-    terminal = "${pkgs.wezterm}";
+    terminal = "$TERM";
     cycle = true;
     pass = {
       enable = true;
@@ -24,23 +24,24 @@
   };
 
   home.packages = with pkgs; [
+    # rofi-bluetooth
+    # rofi-vpn
     pinentry-rofi
-    rofi-rbw
-    rofi-vpn
-    rofi-power-menu
+    # rofi-rbw
+    # rofi-power-menu
     bitwarden-menu
   ];
 
-  xdg.configFile = {
-    "rofi/minimal.rasi".source = ./minimal.rasi;
-    "rofi/rofi-themes-collection" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "newmanls";
-        repo = "rofi-themes-collection";
-        rev = "5bc150394bf785b2751711e3050ca425c662938e";
-        hash = "sha256-k737CFrtbGfpqBxBOhrAD/QRC0aDryFs0jB4fycUooI=";
-      };
-      recursive = true;
-    };
-  };
+  # xdg.configFile = {
+  #   "rofi/minimal.rasi".source = ./minimal.rasi;
+  #   "rofi/rofi-themes-collection" = {
+  #     source = pkgs.fetchFromGitHub {
+  #       owner = "newmanls";
+  #       repo = "rofi-themes-collection";
+  #       rev = "5bc150394bf785b2751711e3050ca425c662938e";
+  #       hash = "sha256-k737CFrtbGfpqBxBOhrAD/QRC0aDryFs0jB4fycUooI=";
+  #     };
+  #     recursive = true;
+  #   };
+  # };
 }

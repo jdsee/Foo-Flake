@@ -1,16 +1,15 @@
 { ... }:
-
 # TODO: Replace all hypr/* scripts
-
 {
   programs.waybar = {
     enable = true;
     style = ./style.css;
     settings = {
-      dock = {
+      secondary = {
         mod = "dock";
         layer = "top";
         position = "top";
+        output = [ "DP-3" ];
         height = 40;
         exclusive = true;
         passthrough = false;
@@ -22,6 +21,53 @@
 
         modules-left = [
           "river/tags"
+          "river/layout"
+        ];
+
+        modules-right = [
+          "clock"
+        ];
+
+        "river/tags" = {
+          num-tags = 10;
+        };
+
+        "clock" = {
+          "interval" = 1;
+          "format" = "{:%H:%M  %d %B, %A}";
+          "tooltip-format" = "<tt><small>{calendar}</small></tt>";
+          "calendar" = {
+            "mode" = "year";
+            "mode-mon-col" = 3;
+            "weeks-pos" = "right";
+            "on-scroll" = 1;
+            "format" = {
+              "months" = "<span color='#ffead3'><b>{}</b></span>";
+              "days" = "<span color='#ecc6d9'><b>{}</b></span>";
+              "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
+              "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+              "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+        };
+      };
+      primary = {
+        mod = "dock";
+        layer = "top";
+        position = "top";
+        output = [ "eDP-1" "DP-4" ];
+        height = 40;
+        exclusive = true;
+        passthrough = false;
+        gtk-layer-shell = true;
+        ipc = true;
+        margin-top = 0;
+        margin-left = 0;
+        margin-right = 0;
+
+        modules-left = [
+          "river/tags"
+          "river/layout"
         ];
 
         modules-center = [
@@ -41,7 +87,7 @@
         ];
 
         "river/tags" = {
-          num_tags = 10;
+          num-tags = 6;
         };
 
         "river/window" = {
@@ -697,6 +743,3 @@
     };
   };
 }
-
-
-

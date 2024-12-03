@@ -1,8 +1,8 @@
 { pkgs, ... }:
-
 let
   timeoutInSeconds = 15 * 60;
-in {
+in
+{
   programs.rbw = {
     enable = true;
     settings = {

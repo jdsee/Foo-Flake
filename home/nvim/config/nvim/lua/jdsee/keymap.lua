@@ -53,3 +53,6 @@ vim.keymap.set('v', '<A-S-k>', ":m '<-2<CR>gv=gv")    -- move line up
 vim.keymap.set('n', '<leader>ols', function()
   vim.opt.list = not vim.opt.list
 end) -- move line up
+vim.keymap.set('n', '<leader>ohs', function()
+  vim.opt.hlsearch = not vim.opt.hlsearch
+end)

@@ -3,6 +3,7 @@
 
 return {
   'ThePrimeagen/harpoon',
+  enabled = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim'
@@ -14,8 +15,12 @@ return {
 
     telescope.load_extension('harpoon')
 
+    vim.keymap.set("n", "<leader>ha", function()
+      mark.add_file()
+      vim.cmd(":do User")
+    end, { desc = "Harpoon: Add file" })
+
     vim.keymap.set('n', '<Leader>hl', ui.toggle_quick_menu)
-    vim.keymap.set('n', '<Leader>ha', mark.add_file)
     vim.keymap.set('n', '<Leader>hr', mark.rm_file)
     vim.keymap.set('n', '<Leader>hh', mark.toggle_file)
     vim.keymap.set('n', '<A-h>', mark.toggle_file)

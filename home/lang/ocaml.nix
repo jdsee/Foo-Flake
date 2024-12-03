@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs.ocamlPackages;
     [
       findlib
@@ -8,7 +7,8 @@
       # dune_3
       ocamlformat
       odoc
-    ] ++ (with pkgs;[
+    ]
+    ++ (with pkgs; [
       opam
       libev
       # pkg-config

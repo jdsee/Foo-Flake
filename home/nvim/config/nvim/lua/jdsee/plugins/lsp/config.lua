@@ -1,5 +1,9 @@
 local M = {}
 
+vim.diagnostic.config {
+  virtual_text = false
+}
+
 local function toggle_virtual_text()
   vim.diagnostic.config {
     virtual_text = not vim.diagnostic.config().virtual_text
@@ -9,6 +13,7 @@ end
 function M.on_attach(client, bufnr)
   vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
   vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
+  client.server_capabilities.semanticTokensProvider = nil -- FIXME: Figure out why this fails in OCaml Project
 
   local opts = { buffer = bufnr, silent = true }
 

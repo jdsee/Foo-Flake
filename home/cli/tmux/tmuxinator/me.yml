@@ -40,11 +40,8 @@ startup_window: editor
 windows:
   - home: ~
   - config:
-      root: ~/nix-config
+      root: ~/foo-flake
       layout: main-vertical
       panes:
         - nvim -c "Telescope git_files"
         - git status
-  - project:
-      root: ~/projects
-

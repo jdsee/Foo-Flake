@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-{
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
+{ pkgs, ... }: {
   programs.ssh.startAgent = false;
   services.pcscd.enable = true;
   hardware.gpgSmartcards.enable = true;

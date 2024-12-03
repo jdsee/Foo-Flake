@@ -30,6 +30,8 @@ return {
             ['if'] = '@function.inner',
             ['ac'] = '@class.outer',
             ['ic'] = '@class.inner',
+            ['aP'] = '@pipeline.outer',
+            ['iP'] = '@pipeline.inner',
           }
         },
         swap = {

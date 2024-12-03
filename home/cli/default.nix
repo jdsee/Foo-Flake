@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, inputs, ... }: {
   imports = [
     ./atuin.nix
     ./git
     ./gpg.nix
+    ./nushell.nix
     ./tmux
     ./vim.nix
     ./zsh
@@ -47,6 +46,7 @@
       hyperfine # Micro benchmark
       wget # File download
       jq # JSON pretty printer and manipulator
+      yq-go # jq for yaml
       ncdu # TUI disk usage
       ripgrep # Better grep
       colordiff # Colored diff
@@ -67,5 +67,4 @@
       zip
     ];
   };
-
 }

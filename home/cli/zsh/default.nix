@@ -1,6 +1,8 @@
-{ pkgs, lib, config, ... }:
-
-{
+{ pkgs
+, lib
+, config
+, ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = false; # slows down session start when enabled
@@ -70,6 +72,9 @@
     profileExtra = ''
       if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
         . $HOME/.nix-profile/etc/profile.d/nix.sh
+      fi
+      if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
+        exec river
       fi
     '';
 

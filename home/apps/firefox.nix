@@ -1,7 +1,6 @@
 { ... }:
-
 # let
-  # addons = inputs.firefox-addons.packages.${pkgs.system};
+# addons = inputs.firefox-addons.packages.${pkgs.system};
 # in
 {
   programs.firefox = {

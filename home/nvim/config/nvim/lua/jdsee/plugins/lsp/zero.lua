@@ -30,12 +30,33 @@ local function setup_servers()
   lspconfig.elmls.setup({})
   lspconfig.gleam.setup({})
   lspconfig.jsonls.setup({})
+  lspconfig.lemminx.setup({})
   lspconfig.phpactor.setup({})
   lspconfig.ts_ls.setup({})
   lspconfig.volar.setup({})
   lspconfig.ocamllsp.setup({})
+  lspconfig.postgres_lsp.setup({})
+  lspconfig.sqls.setup({}) -- TODO: Replace with sqlls when found on Nix
   lspconfig.roc_ls.setup({})
+  lspconfig.terraformls.setup({})
+  lspconfig.ruff.setup({})
+  lspconfig.pyright.setup({})
   lspconfig.rescriptls.setup({})
+  lspconfig.nushell.setup({})
+  lspconfig.kotlin_language_server.setup({})
+
+  lspconfig.nextls.setup({
+    cmd = { "nextls", "--stdio" },
+    init_options = {
+      extensions = {
+        credo = { enable = true }
+      },
+      experimental = {
+        completions = { enable = true }
+      }
+    }
+  })
+
   lspconfig.biome.setup({
     filetypes = {
       "javascript", "javascriptreact", "json", "jsonc",
@@ -44,7 +65,6 @@ local function setup_servers()
       "rescript",
     },
   })
-  -- lspconfig.kotlin_language_server.setup({}) -- still buggy AF :(
 
   lspconfig.tailwindcss.setup({
     filetypes = {

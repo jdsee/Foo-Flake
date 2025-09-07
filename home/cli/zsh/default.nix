@@ -64,7 +64,6 @@ in
       PURE_NODE_ENABLED = 0;
       PURE_CMD_MAX_EXEC_TIME = 1;
       LAUNCHER = "launcher_t4";
-      GOTELEMETRY = "off";
     };
 
     profileExtra = ''

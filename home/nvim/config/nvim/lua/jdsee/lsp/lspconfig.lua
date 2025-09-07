@@ -36,7 +36,6 @@ return {
       roc_ls = {},                          -- roc
       terraformls = {},                     -- terraform
       pyright = {},                         -- python
-      gopls = {},                           -- go
       ruff = {},                            -- python (linter/formatter)
       rescriptls = {},                      -- rescript
       nushell = {},                         -- nushell
@@ -47,6 +46,7 @@ return {
       dockerls = {},                        -- dockerfile
       helm_ls = {},                         -- helm
       zls = {},                             -- zig
+      gopls = {},                           -- go
       nextls = {                            -- elixir
         cmd = { "nextls", "--stdio" },
         init_options = {

@@ -7,10 +7,15 @@ return {
   },
   version = '1.6',
   opts = {
-    keymap = { preset = 'default' },
+    keymap = {
+      preset   = 'default',
+      ['<CR>'] = { 'select_and_accept', 'fallback' },
+    },
+
     appearance = {
       nerd_font_variant = 'mono'
     },
+
     completion = { documentation = { auto_show = false } },
 
     sources = {

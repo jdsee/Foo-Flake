@@ -1,0 +1,77 @@
+configuration {
+  show-icons:   false;
+  sidebar-mode: false;
+  font: "GeistMono Nerd Font Medium 22";
+
+  drun {
+    display-name: "";
+  }
+
+  run {
+    display-name: "💾";
+  }
+
+  window {
+    display-name: "💻";
+  }
+
+  timeout {
+    delay: 10;
+    action: "kb-cancel";
+  }
+}
+
+* {
+  background-color: transparent;
+  text-color:       white;
+  spacing:          40;
+}
+
+window {
+  fullscreen: true;
+  transparency: "background";
+  background-color: rgba(0,0,0,0.85);
+
+  // Add dummy widgets on top and bottom so the sizing
+  // nicely centers hdum, independent of resolution.
+  children: [ dummy1, hdum, dummy2 ];
+}
+
+#hdum {
+  orientation: horizontal;
+  // Add dummy widgets on left and right so the sizing
+  // nicely centers mainbox, independent of resolution.
+  children: [ dummy3, mainbox, dummy4 ];
+}
+
+prompt {
+  padding: 0 50 0 0;
+}
+
+element {
+  background-color: transparent;
+  text-color: #cccccc;
+  halign: center;
+}
+
+element-text {
+  text-color: inherit;
+  background-color: inherit;
+}
+
+element selected {
+  font-color: red;
+  background-color: inherit;
+}
+
+element selected normal {
+  text-color: #F79B56;
+  background-color: inherit;
+}
+
+element selected label {
+  text-color: #278C82;
+  background-color: inherit;
+}
+
+/* green: #ADE48C */

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/pkgs/development/development.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/pkgs/development/development.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/pkgs/development/development2.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/pkgs/development/development2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/foo-flake.iml" filepath="$PROJECT_DIR$/.idea/foo-flake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/nixos/nixos.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/nixos/nixos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/lrmxkfadhlcrakza60w0mc8sc327a5qg-source/nixos/nixos2.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/lrmxkfadhlcrakza60w0mc8sc327a5qg-source/nixos/nixos2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/nixos/nixos3.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/nixos/nixos3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/b0l3v8509hrl3qbv6fj2zl0mjb2rwhdy-source/nixos/nixos4.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/b0l3v8509hrl3qbv6fj2zl0mjb2rwhdy-source/nixos/nixos4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/lrmxkfadhlcrakza60w0mc8sc327a5qg-source/pkgs/pkgs.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/lrmxkfadhlcrakza60w0mc8sc327a5qg-source/pkgs/pkgs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/pkgs/pkgs-lib/pkgs-lib.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/6zgbbqlr7nnfxpzkyj7fsl4fpg89jbw0-source/pkgs/pkgs-lib/pkgs-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/pkgs/pkgs-lib/pkgs-lib2.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/cjrifssmvzm3rw59i58ldc7kvhybzawa-source/pkgs/pkgs-lib/pkgs-lib2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.direnv/flake-inputs/b0l3v8509hrl3qbv6fj2zl0mjb2rwhdy-source/pkgs/pkgs2.iml" filepath="$PROJECT_DIR$/.direnv/flake-inputs/b0l3v8509hrl3qbv6fj2zl0mjb2rwhdy-source/pkgs/pkgs2.iml" />
+    </modules>
+  </component>
+</project>

@@ -3,8 +3,10 @@
 , ...
 }:
 let
-  waylock = lib.getExe pkgs.waylock;
-  lockCmd = "${waylock} -init-color 0x374231 -input-color 0x808b5d -ignore-empty-password";
+  # waylock = lib.getExe pkgs.waylock;
+  # lockCmd = "${waylock} -init-color 0x374231 -input-color 0x808b5d -ignore-empty-password";
+  hyprlock = lib.getExe pkgs.hyprlock;
+  lockCmd = "${hyprlock} --grace 5";
 in
 {
   home.packages = with pkgs; [

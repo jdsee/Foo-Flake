@@ -51,16 +51,16 @@ local function setup()
   -- vim.keymap.set('n', '<A-k>', dap.step_out)
   -- vim.keymap.set('n', '<A-l>', dap.step_over)
 
-  vim.keymap.set('n', '<Leader>dn', dap.continue)
-  vim.keymap.set('n', '<Leader>dd', dap.run_last)
-  vim.keymap.set('n', '<Leader>du', dap.terminate)
-  vim.keymap.set('n', '<Leader>d>', dap.run_to_cursor)
-
-  vim.keymap.set('n', '<Leader>di', dap.repl.toggle)
-  vim.keymap.set('n', '<Leader>dk', dap.up)
-  vim.keymap.set('n', '<Leader>dj', dap.down)
-
-  vim.keymap.set('n', '<Leader>ds', dapui.toggle)
+  -- vim.keymap.set('n', '<Leader>dn', dap.continue)
+  -- vim.keymap.set('n', '<Leader>dd', dap.run_last)
+  -- vim.keymap.set('n', '<Leader>du', dap.terminate)
+  -- vim.keymap.set('n', '<Leader>d>', dap.run_to_cursor)
+  --
+  -- vim.keymap.set('n', '<Leader>di', dap.repl.toggle)
+  -- vim.keymap.set('n', '<Leader>dk', dap.up)
+  -- vim.keymap.set('n', '<Leader>dj', dap.down)
+  --
+  -- vim.keymap.set('n', '<Leader>ds', dapui.toggle)
   -- vim.keymap.set('n', '<Leader>dv', dapui.float_element('scopes', {}))
 
   -- Lua --

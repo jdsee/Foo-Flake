@@ -25,6 +25,7 @@ return {
     vim.keymap.set('n', '<Leader>gg', ':Gitsigns<cr>')
     vim.keymap.set('n', '<Leader>g?', M.blame_full_line)
     vim.keymap.set('n', '<Leader>ga', gitsigns.stage_hunk)
+    vim.keymap.set('n', '<Leader>gA', gitsigns.undo_stage_hunk)
     vim.keymap.set('n', '<Leader>gu', gitsigns.reset_hunk)
     vim.keymap.set('n', '<Leader>gd', M.diffthis_home)
     vim.keymap.set('n', '<Leader>gh', gitsigns.preview_hunk_inline)

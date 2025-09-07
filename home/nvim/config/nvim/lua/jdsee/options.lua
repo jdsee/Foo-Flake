@@ -5,11 +5,11 @@ opt.number = true         -- line numbers
 opt.relativenumber = true -- line number relative to position
 opt.wrap = false          -- don't wrap lines
 opt.mouse = 'a'           -- mouse support in all modes
-opt.hidden = true         -- hide buffers without saving
 opt.spell = false
 opt.spelllang = 'en_us,de_de'
 opt.linebreak = true -- wrap whole lines if line wrap active
 opt.swapfile = false
+opt.showtabline = 0
 
 
 -- Windows
@@ -41,14 +41,12 @@ opt.smarttab = true
 opt.expandtab = true       -- use spaces as tab
 opt.smartindent = true     -- auto indent on insert
 opt.autoindent = true      -- "
-opt.filetype.indent = true -- "
 opt.splitright = true      -- open new vertical splits on the right
 opt.splitbelow = true      -- open new horizontal splits on the bottom
 opt.joinspaces = false     -- prevent some weird extra spaces
 
 -- Style
-vim.cmd [[ colorscheme tokyonight-night ]] -- theme
-opt.syntax = 'on'                          -- basic syntax highlighting
+vim.cmd [[ colorscheme neobones ]]         -- theme
 opt.showmatch = true                       -- show matching brackets
 opt.cursorline = true                      -- highlight current line
 opt.cmdheight = 0                          -- hide command line when not used
@@ -64,3 +62,7 @@ vim.filetype.add({
     re = 'reason',
   },
 })
+
+-- Use rg as vimgrep engine
+vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"

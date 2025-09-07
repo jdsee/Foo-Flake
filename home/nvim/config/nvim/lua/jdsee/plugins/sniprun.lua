@@ -1,12 +1,12 @@
 -- sniprun
 -- https://github.com/michaelb/sniprun
 
---
 return {
   'michaelb/sniprun',
+  enabled = false,
   build = 'bash ./install.sh',
   cond = true,
-  config = function() 
+  config = function()
     local sniprun = require('sniprun')
     local display = require('sniprun.display')
     vim.keymap.set('n', '<Leader>el', sniprun.run)

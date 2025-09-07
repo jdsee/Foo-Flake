@@ -50,6 +50,8 @@
         "waybar"
         "nm-applet"
         "flameshot"
+        "wl-paste -t text --watch cliphist store"
+        "wl-paste -t image --watch cliphist store"
       ];
       map = {
         normal = {
@@ -58,19 +60,26 @@
           "Super+Shift Space" = "toggle-float";
           "Super F" = "toggle-fullscreen";
           "Super+Alt R" = "spawn $XDG_CONFIG_HOME/river/reload";
-          "Super+Alt L" = "spawn 'waylock -init-color 0x374231 -input-color 0x808b5d -ignore-empty-password'";
+          "Super+Alt L" = "spawn 'hyprlock --grace 5'";
           "Super E" = "spawn $XDG_CONFIG_HOME/river/nvim-input";
           "Super+Shift E" = "spawn $XDG_CONFIG_HOME/river/nvim-edit";
 
-          # Rofi
-          "Super Space" = "spawn 'tofi-drun | xargs -I _ riverctl spawn _'";
-          "Super+Control Space" = "spawn 'nu ${../tofi/tofi-pass.nu}'";
-          "Super+Control V" = "spawn 'nu ${../tofi/tofi-nm.nu} vpn'";
-          "Super+Control W" = "spawn 'nu ${../tofi/tofi-nm.nu} wifi'";
-          "Super+Control B" = "spawn 'nu ${../tofi/tofi-bt.nu}'";
+          # Picker
+          "Super Space" = "spawn 'rofi -show drun | xargs -I _ riverctl spawn _'";
+          "Super+Control Space" = "spawn 'nu ${../rofi/rofi-gopass.nu}'";
+          "Super+Control V" = "spawn 'nu ${../rofi/rofi-nm.nu} vpn'";
+          "Super+Control W" = "spawn 'nu ${../rofi/rofi-nm.nu} wifi'";
+          "Super+Control B" = "spawn 'nu ${../rofi/rofi-bt.nu}'";
+          "Super+Control O" = "spawn 'nu ${../rofi/rofi-audio.nu} output'";
+          "Super+Control I" = "spawn 'nu ${../rofi/rofi-audio.nu} input'";
+          "Super+Control E" = "spawn 'rofi emoji'";
+          "Super+Control F" = "spawn 'rofi filebrowser'";
+          "Super V" = ''
+            spawn 'cliphist list | sed -E "s/^\w+\s+//" | rofi | wl-copy && wtype -s 50 -M ctrl -k v -m ctrl'
+          '';
 
           # Applications
-          "Super Return" = "spawn 'foot'";
+          "Super Return" = "spawn 'ghostty'";
           "Super b" = "spawn 'firefox'";
 
           # Notifications
@@ -82,6 +91,8 @@
           "Super J" = "focus-view down";
           "Super K" = "focus-view up";
           "Super L" = "focus-view right";
+          "Super Tab" = "focus-view next";
+          "Super+Shift Tab" = "focus-view previous";
 
           # Swap views
           "Super+Shift H" = "swap left";
@@ -101,10 +112,16 @@
           "Super+Control+Shift K" = "snap up";
           "Super+Control+Shift L" = "snap right";
 
+          # Layout
+          "Super+Alt J" = "send-layout-cmd wideriver '--stack even --count -1'";
+          "Super+Alt K" = "send-layout-cmd wideriver '--stack dwindle --count +1'";
+
           # Screenshots
-          "Super+Shift S" = "spawn 'flameshot gui'";
-          "Super+Control S" = "spawn 'flameshot screen'";
-          "Super+Control+Shift S" = "spawn 'flameshot full'";
+          "Super S" = "spawn 'XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=xcb flameshot gui'";
+          "Super+Shift S" = "spawn 'XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=xcb flameshot screen -r'";
+
+          # Theme toggle
+          "Super T" = "spawn 'toggle-theme'"; # TODO: This doesn't work -> Does river run gsettings for the correct user?
         };
       };
     };
@@ -188,6 +205,9 @@
       riverctl rule-add -app-id org.pulseaudio.pavucontrol ssd
       riverctl rule-add -app-id gpartedbin ssd
       riverctl rule-add -app-id .blueman-manager-wrapped ssd
+      riverctl rule-add -app-id com.mitchellh.ghostty ssd
+      riverctl rule-add -app-id flameshot float
+      riverctl rule-add -app-id flameshot focus
 
       # Layout
       riverctl default-layout wideriver
@@ -205,13 +225,14 @@
           --border-width                 2           \
           --border-width-monocle         0           \
           --border-width-smart-gaps      0           \
-          --border-color-focused         "0x93a1a1"  \
+          --border-color-focused         "0xffac00"  \
           --border-color-focused-monocle "0x586e75"  \
           --border-color-unfocused       "0x3b3b3b"  \
           --log-threshold                info        \
-         > "/tmp/wideriver.$${XDG_VTNR}.$${USER}.log" 2>&1 &
+         > "/tmp/wideriver.''${XDG_VTNR}.''${USER}.log" 2>&1 &
 
       dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+      systemctl --user set-environment XDG_CURRENT_DESKTOP=river
       systemctl --user stop pipewire xdg-desktop-portal xdg-desktop-portal-wlr wireplumber
       systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr wireplumber
     '';

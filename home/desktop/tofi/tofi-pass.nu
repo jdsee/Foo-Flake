@@ -32,7 +32,7 @@ if ($env.WAYLAND_DISPLAY | is-empty) {
 reset-clipboard # Prevent previous clipboard-cleanup from messing up the current run
 
 let pws = gopass ls -f
-let sel = $pws | tofi --prompt-text $prompt
+let sel = $pws | tofi --prompt-text $prompt --output='DP-3'
 
 if ($sel | is-empty) {
   print "selection is empty"

@@ -12,16 +12,16 @@ if [ "$enabled_outputs" == 1 ]; then
   riverctl set-focused-tags "$target_tags"
 fi
 
-tag_output_map[1]="DP-4"
-tag_output_map[2]="DP-4"
-tag_output_map[3]="DP-4"
-tag_output_map[4]="DP-4"
-tag_output_map[5]="DP-4"
-tag_output_map[6]="DP-4"
-tag_output_map[7]="DP-3"
-tag_output_map[8]="DP-3"
-tag_output_map[9]="DP-3"
-tag_output_map[10]="DP-3"
+tag_output_map[1]="DP-3"
+tag_output_map[2]="DP-3"
+tag_output_map[3]="DP-3"
+tag_output_map[4]="DP-3"
+tag_output_map[5]="DP-3"
+tag_output_map[6]="DP-3"
+tag_output_map[7]="DP-4"
+tag_output_map[8]="DP-4"
+tag_output_map[9]="DP-4"
+tag_output_map[10]="DP-4"
 
 target_output="${tag_output_map[$TARGET]}"
 output_exists=$(

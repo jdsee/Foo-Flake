@@ -1,6 +1,6 @@
 return {
   "otavioschwanck/arrow.nvim",
-  enabled = true,
+  enabled = false,
   dependencies = {
     { "nvim-tree/nvim-web-devicons" },
   },
@@ -15,7 +15,7 @@ return {
     arrow.setup {
       show_icons = true,
       hide_handbook = true,
-      leader_key = '<TAB>',
+      leader_key = '<C-k>',
       mappings = {
         edit = "e",
         toggle = "h",

@@ -33,7 +33,6 @@ in
           "networkManager"
         ];
 
-      # passwordFile = config.sops.secrets.${user}-password.path;
       packages = [ pkgs.home-manager ];
     };
   };

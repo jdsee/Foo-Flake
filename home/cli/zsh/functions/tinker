@@ -1,8 +1,0 @@
-# Helper to make modifiable copy of immutable link to nix store
-
-FILE=$1
-mv $1 $1.bak
-cp $1.bak $1
-chmod +w $1
-vi $1
-

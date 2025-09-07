@@ -1,10 +1,11 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./atuin.nix
     ./git
     ./gpg.nix
     ./nushell.nix
     ./tmux
+    ./tinker
     ./vim.nix
     ./zsh
   ];
@@ -40,6 +41,7 @@
     packages = with pkgs; [
       file
       lsof
+      inetutils
 
       fd # Better find
       httpie # Better curl
@@ -49,6 +51,7 @@
       yq-go # jq for yaml
       ncdu # TUI disk usage
       ripgrep # Better grep
+      ripgrep-all # Better grep for everything
       colordiff # Colored diff
       restic # Backup tool
       bottom # Monitoring like htop
@@ -60,6 +63,11 @@
       dust # More intuitive alternative to du
       rlwrap # Add history and easier navigation in line-reading programs
       nh # TODO: needed? -> Reimplementation of common nix-commands
+      just # command runner
+      claude-code # ai ¯\_(ツ)_/¯
+      libimobiledevice
+      ifuse
+      git-crypt
 
       # compression
       p7zip

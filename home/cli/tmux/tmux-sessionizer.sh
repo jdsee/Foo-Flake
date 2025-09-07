@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Returns true if the given directory is a bare git repository,
+# in any other case false (i.e. not a git repo).
+is_bare_git_repo() {
+  [ "$(git --git-dir="${1}/.git" rev-parse --is-bare-repository 2>/dev/null)" = "true" ]
+}
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
@@ -10,6 +16,17 @@ fi
 
 if [[ -z $selected ]]; then
     exit 0
+fi
+
+if is_bare_git_repo "$selected"; then
+  selected=$(git --git-dir="${selected}/.git" worktree list --porcelain |
+    awk '
+      /^worktree / { path = $2 }
+      /^branch / { sub("refs/heads/", "", $2); printf "%s\t%s\n", $2, path }
+    ' |
+    fzf --layout=reverse --with-nth=1 --delimiter='\t' |
+    cut -f2
+  )
 fi
 
 selected_name=$(basename "$selected" | tr . _)

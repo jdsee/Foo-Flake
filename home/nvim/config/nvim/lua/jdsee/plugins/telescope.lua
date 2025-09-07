@@ -114,10 +114,6 @@ return {
       builtin.lsp_code_actions(themes.get_cursor())
     end
 
-    local function lsp_find_references()
-      builtin.lsp_references({ trim_text = true }, themes.get_cursor())
-    end
-
     local function find_all_files()
       builtin.find_files {
         hidden = true,
@@ -135,6 +131,14 @@ return {
       end
     end
 
+    -- FIXME: resume doesn't fail when no results, so fallback doesn't work
+    local function resume_or_find_git_files()
+      local status_ok, _ = pcall(builtin.resume)
+      if not status_ok then
+        find_git_or_all_files()
+      end
+    end
+
     local function find_nvim_files()
       builtin.find_files {
         opt = { cwd = "$XDG_HOME/neovim" },
@@ -146,12 +150,18 @@ return {
       builtin.spell_suggest(themes.get_cursor())
     end
 
+    local function lsp_references()
+      builtin.lsp_references(themes.get_ivy())
+    end
+
     vim.keymap.set('n', '<C-S-A>', builtin.builtin)                       -- search telescope actions
-    vim.keymap.set('n', '<Leader>ff', find_git_or_all_files)              -- git_files if git repo, else all files
-    vim.keymap.set('n', '<Leader>fj', telescope.extensions.zoxide.list)   -- search autojump list
+    vim.keymap.set('n', '<Leader>ff', find_git_or_all_files)              -- resume or git_files if git repo, else all files
+    vim.keymap.set('n', '<Leader>fr', builtin.resume)                     -- resume or git_files if git repo, else all files
+    vim.keymap.set('n', '<Leader>fj', builtin.resume)                     -- resume or git_files if git repo, else all files
+    -- vim.keymap.set('n', '<Leader>fr', find_git_or_all_files)              -- git_files if git repo, else all files
+    vim.keymap.set('n', '<Leader>fz', telescope.extensions.zoxide.list)   -- search autojump list
     vim.keymap.set('n', '<Leader>fa', find_all_files)                     -- search all files
     vim.keymap.set('n', '<Leader>fn', find_nvim_files)                    -- search files in neovim config
-    vim.keymap.set('n', '<Leader>fg', builtin.live_grep)                  -- grep everywhere
     vim.keymap.set('n', '<Leader>f*', builtin.grep_string)                -- grep string under cursor
     vim.keymap.set('n', '<Leader>fh', builtin.help_tags)                  -- search help tags
     vim.keymap.set('n', '<Leader>fc', builtin.commands)                   -- search command history
@@ -164,13 +174,17 @@ return {
     -- vim.keymap.set('n', '<Tab>', buffers)                                 -- search buffers << disabled since mapping tab in newer tmux versions is still a pain
     vim.keymap.set('n', '<Leader>n', buffers)                             -- search buffers
     vim.keymap.set('n', 'z=', spell_suggestions)                          -- search spell suggestions
-    vim.keymap.set('n', 'gR', lsp_find_references)                        -- find references with lsp (using Trouble.nvim vor now)
     vim.keymap.set('n', '<Leader>gw', telescope.extensions.git_worktree.git_worktrees)
     vim.keymap.set('n', '<Leader>gb', builtin.git_branches)               -- search git branches
     vim.keymap.set('n', '<Leader>gf', builtin.git_files)                  -- search git files
     vim.keymap.set('n', '<Leader>gc', builtin.git_commits)                -- search git commits
     vim.keymap.set('n', '<Leader>sft', builtin.filetypes)                 -- find and set filetype
+    vim.keymap.set('n', '<Leader>fg', builtin.live_grep)                  -- grep everywhere
+    vim.keymap.set('n', '<Leader>fG', builtin.grep_string)                -- grep string under cursor
+    vim.keymap.set('n', 'grr', lsp_references)                            -- find references with lsp in cursor popup
+    vim.keymap.set('v', '<leader>fg', function()
+      local text = vim.fn.getregion(vim.fn.getpos("'<"), vim.fn.getpos("'>"), { type = vim.fn.mode() })
+      require('telescope.builtin').live_grep({ default_text = table.concat(text, '\n') })
+    end)
   end,
 }
-
-

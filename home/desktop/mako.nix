@@ -1,21 +1,24 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     libnotify
   ];
 
   services.mako = {
     enable = true;
-    font = "GeistMono Nerd Font 12";
-    padding = "10,20";
-    anchor = "top-left";
-    borderSize = 2;
-    defaultTimeout = 5000;
-    width = 300;
-    icons = false;
+    settings = {
+      font = "GeistMono Nerd Font 12";
+      anchor = "top-left";
+      default-timeout = 5000;
+      icons = false;
+      border-color = "#11111b";
+      border-size = 2;
+      padding = "10,20";
+      width = 300;
+      text-color = "#cdd6f4";
+      background-color = "#1e1e2e";
+    };
 
-    backgroundColor = "#1e1e2e";
-    textColor = "#cdd6f4";
-    borderColor = "#11111b";
 
     extraConfig = ''
       [mode=mute]

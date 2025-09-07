@@ -3,15 +3,19 @@
     ./flameshot.nix
     ./fonts.nix
     ./foot.nix
+    ./ghostty.nix
     ./gammastep.nix
     ./gtk.nix
     ./kanshi.nix
     ./mako.nix
+    ./mime-types.nix
     ./rbw.nix
     ./river
     ./swayidle.nix
+    ./toggle-theme.nix
     ./tofi
     ./wayland-pipewire-idle-inhibit.nix
+    ./hyprlock.nix
   ];
 
   home.sessionVariables = {
@@ -21,7 +25,8 @@
   };
 
   home.packages = with pkgs; [
-    imv # simple image viewer
+    cliphist
+    qimgv
     mimeo
     pulseaudio
     pavucontrol
@@ -32,9 +37,9 @@
     wlr-randr # manage monitors in wayland (xrandr alternative)
     nwg-displays
     wtype # automate typing input
-    way-displays # Display Output Configurator (TODO: This should/could replace Kanshi at some point)
     waylock # Screen-Lock
     ydotool # automate user input (#TODO: why is wtype installed additionally?)
-    xwaylandvideobridge
+    kdePackages.xwaylandvideobridge
+    nemo # filebrowser
   ];
 }

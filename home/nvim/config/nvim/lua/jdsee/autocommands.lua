@@ -5,14 +5,6 @@ vim.cmd [[
   au FileType help wincmd L
 ]]
 
--- Highlight on yank
-vim.cmd [[
-  augroup YankHighlight
-    au!
-    au TextYankPost * silent! lua vim.highlight.on_yank { timeout = 100 }
-  augroup end
-]]
-
 -- Terminal Defaults
 vim.cmd [[
   augroup Terminal
@@ -103,4 +95,70 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   callback = function()
     vim.bo.filetype = "yaml.gitlab"
   end,
+})
+
+-- Highlight on yank - defer until colorscheme is loaded
+local function setup_yank_highlight()
+  local yank_clip_hl_base = vim.api.nvim_get_hl(0, { name = 'Search' })
+  vim.api.nvim_set_hl(0, "YankClipboard", { bg = yank_clip_hl_base.fg, fg = '#020202', bold = true })
+  vim.api.nvim_set_hl(0, "YankNormal", { link = 'IncSearch' })
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+    callback = function()
+      local reg = vim.v.event.regname
+      local hl_group = 'YankNormal'
+      if reg == '*' or reg == '+' then
+        hl_group = 'YankClipboard'
+      end
+      vim.hl.on_yank { timeout = 100, higroup = hl_group }
+    end
+  })
+end
+
+-- Flash on tmux focus (responds to focus events from tmux)
+local tmux_flash_timer = nil
+local function setup_tmux_focus_flash()
+  vim.api.nvim_create_autocmd({ 'FocusGained' }, {
+    group = vim.api.nvim_create_augroup("TmuxFocusFlash", { clear = true }),
+    callback = function()
+      if tmux_flash_timer then
+        vim.fn.timer_stop(tmux_flash_timer)
+      end
+
+      vim.api.nvim_set_hl(0, "TmuxFlash", { bg = '#ffdf87' })
+      local current_win = vim.api.nvim_get_current_win()
+      local win_hl = vim.wo[current_win].winhighlight
+
+      -- flash
+      vim.wo[current_win].winhighlight = 'Normal:TmuxFlash'
+
+      tmux_flash_timer = vim.fn.timer_start(50, function()
+        if vim.api.nvim_win_is_valid(current_win) then
+          vim.wo[current_win].winhighlight = win_hl
+        end
+        tmux_flash_timer = nil
+      end)
+    end
+  })
+
+  -- Emergency reset keymap
+  vim.keymap.set('n', '<leader>tf', function()
+    local current_win = vim.api.nvim_get_current_win()
+    vim.wo[current_win].winhighlight = ''
+    if tmux_flash_timer then
+      vim.fn.timer_stop(tmux_flash_timer)
+      tmux_flash_timer = nil
+    end
+    print("Tmux flash reset")
+  end, { desc = "Reset tmux flash highlighting" })
+end
+
+-- Setup theme-dependent autocommands after colorscheme loads
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+  group = vim.api.nvim_create_augroup("SetupThemingAutocommands", { clear = true }),
+  callback = function()
+    setup_tmux_focus_flash()
+    setup_yank_highlight()
+  end,
+  once = true
 })

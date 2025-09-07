@@ -10,14 +10,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     systems.url = "github:nix-systems/default";
-    sops-nix.url = "github:Mic92/sops-nix";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    linked-planet = {
+      url = "git+ssh://git@github.com/linked-planet/nixified-onboarding.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
-    inputs @ { self, nixpkgs, home-manager, systems, sops-nix, ... }:
+    inputs @ { self, nixpkgs, home-manager, systems, ... }:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -28,31 +39,59 @@
       formatter.${system} = pkgs.nixpkgs-fmt;
       overlays = import ./overlays { inherit inputs; };
 
-      # nixos-rebuild switch --flake .#your-hostname
-      nixosConfigurations = rec {
-        default = transitus;
+      # apps.${system} = {
+      #   nvim = {
+      #     program = {
+      #       program = "${config.packages.neovim}/bin/nvim";
+      #       type = "app";
+      #     };
+      #   };
+      #
+      #   tmpvim = {
+      #     program = {
+      #       program = pkgs.writeShellScriptBin "tmpvim" ''
+      #         XDG_CONFIG_HOME=$(realpath .) ${config.packages.neovim}/bin/nvim
+      #       '';
+      #       type = "app";
+      #     };
+      #   };
+      # };
 
-        transitus = nixpkgs.lib.nixosSystem {
+      # nixos-rebuild switch --flake .#your-hostname
+      # - Find conflicting HM file: journalctl -xe --unit home-manager-jdsee.service | grep 'is in the way'
+      nixosConfigurations = rec {
+        default = saxum;
+
+        saxum = nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./host
-            sops-nix.nixosModules.sops
           ];
         };
       };
 
       # home-manager switch --flake .#your-username@your-hostname
       homeConfigurations = {
-        "jdsee@transitus" = home-manager.lib.homeManagerConfiguration {
-          system = system;
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        "jdsee@saxum" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
-            ./home/jdsee/transitus.nix
-            inputs.wayland-pipewire-idle-inhibit.homeModules.default
+            ./home/saxum.nix
           ];
+        };
+      };
+
+      devShells = {
+        "${system}" = {
+          default = pkgs.mkShell {
+            shellHook = ''
+              export
+              PATH=$PWD/cmds:$PATH
+            '';
+          };
         };
       };
     };
 }
+

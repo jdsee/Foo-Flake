@@ -30,11 +30,13 @@
             {
               criteria = "Dell Inc. DELL P2719H J9T8193";
               position = "0,0";
+              mode = "1920x1080";
               transform = "90";
             }
             {
               criteria = "Dell Inc. DELL U3219Q 8P7R413";
-              position = "1080,0";
+              position = "1080,540";
+              mode = "3840x2160";
             }
           ];
           exec = [

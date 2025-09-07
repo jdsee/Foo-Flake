@@ -2,6 +2,7 @@
 , pkgs
 , config
 , outputs
+, inputs
 , ...
 }: {
   imports = [
@@ -10,10 +11,16 @@
   ];
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
+    overlays = builtins.attrValues outputs.overlays ++
+      [
+        inputs.nur.overlays.default
+      ];
+
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;
+      allowBroken = true;
+      permittedInsecurePackages = [ ];
     };
   };
 

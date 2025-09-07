@@ -7,6 +7,40 @@ function _G.get_oil_winbar()
   end
 end
 
+-- Opens terminal in current directory and adds 'ls -la <file>' to shell history
+-- File under cursor is available for shell expansion
+-- !$   filename
+-- !^   filepath (absolute)
+local function open_oil_dir_in_tmux()
+  local oil = require("oil")
+  local current_dir = oil.get_current_dir()
+
+  if not current_dir then
+    vim.notify("Not in an Oil buffer", vim.log.levels.WARN)
+    return
+  end
+
+  local entry = oil.get_cursor_entry()
+  local file_path = entry and (current_dir .. entry.name) or current_dir
+  local filename = vim.fn.fnamemodify(file_path, ":t")
+  local history_cmd = string.format("echo \"ls %s %s\" >> ~/.zsh_history; fc -R",
+    vim.fn.shellescape(file_path),
+    vim.fn.shellescape(filename))
+
+  local calling_from_tmux = vim.fn.getenv("TMUX") ~= vim.NIL
+  if calling_from_tmux then
+    local cmd = string.format("tmux new-window -c %s '%s; exec $SHELL'",
+      vim.fn.shellescape(current_dir),
+      history_cmd)
+    vim.fn.system(cmd)
+    vim.notify("Opened " .. current_dir .. " in new tmux window")
+  else
+    vim.cmd(string.format("terminal cd %s && %s && $SHELL",
+      vim.fn.shellescape(current_dir),
+      history_cmd))
+  end
+end
+
 return {
   'stevearc/oil.nvim',
   opts = {},
@@ -47,6 +81,8 @@ return {
           ['H'] = actions.parent,
           ['L'] = actions.select,
           ['gp'] = actions.preview,
+          ['gx'] = actions.open_terminal,
+          ['go'] = open_oil_dir_in_tmux,
           ['q'] = oil.close,
           ['<leader>j'] = oil.close,
           ["gd"] = {

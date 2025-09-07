@@ -50,9 +50,16 @@ vim.keymap.set('v', '<A-S-j>', ":m '>+1<CR>gv=gv")    -- move line down
 vim.keymap.set('v', '<A-S-k>', ":m '<-2<CR>gv=gv")    -- move line up
 
 -- Options
-vim.keymap.set('n', '<leader>ols', function()
-  vim.opt.list = not vim.opt.list
-end) -- move line up
-vim.keymap.set('n', '<leader>ohs', function()
-  vim.opt.hlsearch = not vim.opt.hlsearch
+vim.keymap.set('n', '<leader>ol', function()
+  vim.opt.list = not vim.opt.list:get()
 end)
+vim.keymap.set('n', '<leader>oh', function()
+  vim.opt.hlsearch = not vim.opt.hlsearch:get()
+end)
+vim.keymap.set('n', '<leader>ot', function()
+  vim.opt.background = vim.opt.background:get() == 'dark' and 'light' or 'dark'
+end)
+
+-- Execute Lua code
+vim.keymap.set('n', '<leader>xl', ':.lua<CR>', { desc = 'Execute current line as Lua' })
+vim.keymap.set('v', '<leader>xl', ':lua<CR>', { desc = 'Execute visual selection as Lua' })

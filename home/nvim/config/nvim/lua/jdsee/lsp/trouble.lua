@@ -4,6 +4,18 @@ return {
   opts = {
     focus = true,
     auto_close = true,
+    modes = {
+      lsp_document_symbols = {
+        win = {
+          type = "float",
+          size = { width = 0.8, height = 0.5 },
+          border = "rounded",
+        },
+        keys = {
+          ["<cr>"] = "jump_close",
+        },
+      },
+    },
   },
   keys = {
     {
@@ -16,15 +28,15 @@ return {
       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
       desc = 'Buffer Diagnostics (Trouble)',
     },
+    -- {
+    --   'grr',
+    --   function() require('trouble').toggle('lsp_references') end,
+    --   desc = 'Buffer Diagnostics (Trouble)',
+    -- },
     {
-      'gr',
-      function() require('trouble').toggle('lsp_references') end,
-      desc = 'Buffer Diagnostics (Trouble)',
-    },
-    {
-      '<leader>cs',
-      '<cmd>Trouble symbols toggle focus=false<cr>',
-      desc = 'Symbols (Trouble)',
+      'go',
+      '<cmd>Trouble symbols toggle focus<cr>',
+      desc = 'Document Symbols (Trouble)',
     },
     {
       '<leader>cl',
@@ -37,7 +49,7 @@ return {
       desc = 'Location List (Trouble)',
     },
     {
-      '<leader>xq',
+      '<leader>q',
       '<cmd>Trouble qflist toggle<cr>',
       desc = 'Quickfix List (Trouble)',
     },

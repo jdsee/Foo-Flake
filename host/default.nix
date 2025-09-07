@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./global
@@ -9,6 +9,7 @@
     ./yubikey.nix
     ./nvidia.nix
     ./obs-virtual-cam.nix
+    ./steam.nix
 
     ./services/docker.nix
     ./services/greetd.nix
@@ -20,19 +21,25 @@
   system.stateVersion = "24.05";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.initrd.luks.devices."luks-059042ae-dbcd-4cb8-bb6d-87e4ab50830f".device = "/dev/disk/by-uuid/059042ae-dbcd-4cb8-bb6d-87e4ab50830f";
 
   networking = {
-    hostName = "transitus";
+    hostName = "saxum";
     networkmanager.enable = true;
   };
 
   powerManagement.powertop.enable = true;
-  security.rtkit.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     openssl
   ];
+
+  security = {
+    rtkit.enable = true;
+    pki.certificateFiles = builtins.map (name: ../secrets/cert + "/${name}")
+      (builtins.attrNames (builtins.readDir ../secrets/cert));
+  };
 
   programs = {
     zsh.enable = true;
@@ -49,30 +56,7 @@
     udisks2.enable = true;
     hardware.bolt.enable = true;
     printing.enable = true;
-
-    # TODO: Try to disable xserver (videoDrivers might still be needed)
-    xserver = {
-      enable = false;
-      videoDrivers = [ "nvidia" ];
-      xkb = {
-        layout = "us-custom";
-        variant = "";
-        extraLayouts.us-custom = {
-          description = "My custom US layout";
-          languages = [ "eng" ];
-          symbolsFile = pkgs.writeText "xkb-layout" ''
-            xkb_symbols "us-custom"
-            {
-              include "us(basic)"
-              include "level3(ralt_switch)"
-
-              key <LatA> { [ a, A, at ] };
-              key <LatE> { [ e, E, exclam ] };
-            };
-          '';
-        };
-      };
-    };
+    usbmuxd.enable = true;
   };
 
   systemd.services = {

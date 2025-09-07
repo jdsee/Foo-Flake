@@ -9,7 +9,7 @@
         mod = "dock";
         layer = "top";
         position = "top";
-        output = [ "DP-3" ];
+        output = [ "DP-4" ];
         height = 40;
         exclusive = true;
         passthrough = false;
@@ -55,7 +55,7 @@
         mod = "dock";
         layer = "top";
         position = "top";
-        output = [ "eDP-1" "DP-4" ];
+        output = [ "eDP-1" "DP-3" "HDMI-A-1" ];
         height = 40;
         exclusive = true;
         passthrough = false;

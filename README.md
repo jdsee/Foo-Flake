@@ -33,12 +33,12 @@ This configuration can either be used with NixOS or Home-Manager on any other di
 
 **Use config under NixOS**
 ```bash
-sudo nixos-rebuild switch --flake ~/mynix#transitus
+sudo nixos-rebuild switch --flake ~/mynix#saxum
 ```
 
 **User config with Home-Manager**
 ```bash
-sudo nixos-rebuild switch --flake ~/mynix#transitus
+sudo nixos-rebuild switch --flake ~/mynix#saxum
 ```
 
 ## Credits

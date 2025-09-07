@@ -1,6 +1,6 @@
 return {
   'hrsh7th/nvim-cmp',
-  enabled = true,
+  enabled = false,
   dependencies = {
     'L3MON4D3/LuaSnip',
     'VonHeikemen/lsp-zero.nvim',
@@ -9,14 +9,17 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
+    'dmitmel/cmp-digraphs',
     'rafamadriz/friendly-snippets',
     'saadparwaiz1/cmp_luasnip',
     'onsails/lspkind.nvim',
+    "tailwind-tools",
   },
   config = function()
     local cmp = require('cmp')
     local lsp_zero = require('lsp-zero')
     local lspkind = require('lspkind')
+    local tailwind_tools = require("tailwind-tools.cmp")
     lspkind.init()
 
     require('luasnip.loaders.from_vscode').lazy_load()
@@ -29,10 +32,10 @@ return {
       },
 
       sources = {
+        { name = 'digraphs' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'nvim_lua' },
-        { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'luasnip' },
         { name = 'treesitter' },
@@ -53,6 +56,7 @@ return {
 
       formatting = {
         format = lspkind.cmp_format({
+          before = tailwind_tools.lspkind_format,
           mode = 'symbol',          -- show only symbol annotations
           maxwidth = 50,            -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
           ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)

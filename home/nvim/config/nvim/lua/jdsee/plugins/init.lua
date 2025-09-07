@@ -8,7 +8,8 @@ return {
   'tpope/vim-unimpaired', -- Pairs of hande bracket mappings
   'wellle/targets.vim',   -- inner style text objects
   'gleam-lang/gleam.vim', -- Syntax Highlighting and snippets for Gleam
-  -- 'dhruvasagar/vim-table-mode', -- markdown table support
+  'dhruvasagar/vim-table-mode', -- markdown table support
+  'sindrets/diffview.nvim', -- Vim Diff UI
   -- 'ThePrimeagen/vim-be-good',   -- game to practice vim movements
   -- 'xiyaowong/transparent.nvim', -- Simple command to make bg transparent
 
@@ -38,11 +39,6 @@ return {
   {
     'karb94/neoscroll.nvim',
     config = function() require('neoscroll').setup() end,
-  },
-
-  {
-    'stevearc/dressing.nvim',
-    opts = {},
   },
 
   --- Incremental LSP rename ---

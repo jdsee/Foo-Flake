@@ -7,7 +7,7 @@
   # [92634:1101/172956.342326:ERROR:shared_screencast_stream.cc(178)] PipeWire remote error: no more input formats
 
   security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   services.pipewire = {
     enable = true;

@@ -51,7 +51,7 @@ def select-connection-name [connections: list, prompt: string] {
         $"[($state_indicator)] ($con.name)"
       }
     | to text
-    | tofi --prompt $prompt
+    | tofi --prompt $prompt --output='DP-3'
     | str replace -r '^\[.\] ' ''
     | str trim
 }

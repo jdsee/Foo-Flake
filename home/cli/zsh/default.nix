@@ -1,8 +1,16 @@
 { pkgs
 , lib
-, config
 , ...
-}: {
+}:
+let
+  popman_repo = pkgs.fetchFromGitHub {
+    owner = "jdsee";
+    repo = "popman";
+    rev = "v0.1.0";
+    sha256 = "YEJ1BCKXVlbSTwssj1r1ld5Kc6znxxoJ80A3Zniy6Mo=";
+  };
+in
+{
   programs.zsh = {
     enable = true;
     enableCompletion = false; # slows down session start when enabled
@@ -35,17 +43,6 @@
         src = pkgs.zsh-autopair.src;
       }
       {
-        # FIXME: This is not working (might be related to zsh-vi-mode)
-        name = "popman";
-        file = "popman.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "jdsee";
-          repo = "popman";
-          rev = "v0.1.0";
-          sha256 = "YEJ1BCKXVlbSTwssj1r1ld5Kc6znxxoJ80A3Zniy6Mo=";
-        };
-      }
-      {
         name = "custom-functions";
         src = ./functions;
       }
@@ -67,6 +64,7 @@
       PURE_NODE_ENABLED = 0;
       PURE_CMD_MAX_EXEC_TIME = 1;
       LAUNCHER = "launcher_t4";
+      GOTELEMETRY = "off";
     };
 
     profileExtra = ''
@@ -78,7 +76,7 @@
       fi
     '';
 
-    initExtra = ''
+    initContent = ''
       autoload -U promptinit; promptinit
       prompt pure
 
@@ -91,19 +89,31 @@
         ~/.config/tmux/tmux-sessionizer.sh
       }
       zle -N run_tmux_sessionizer
-      bindkey -M emacs ^G' run_tmux_sessionizer
-      bindkey -M viins ^G' run_tmux_sessionizer
+      bindkey -M emacs '^G' run_tmux_sessionizer
+      bindkey -M viins '^G' run_tmux_sessionizer
 
       # Autosuggest
       bindkey -M emacs '^O' autosuggest-accept
       bindkey -M viins '^O' autosuggest-accept
       bindkey -M vicmd '^O' autosuggest-accept
 
+      # Claude popup
+      open_claude_popup() {
+        tmux display-popup -d "#{pane_current_path}" claude
+      }
+      zle -N open_claude_popup
+      bindkey -M emacs '^B' open_claude_popup
+      bindkey -M viins '^B' open_claude_popup
+      bindkey -M vicmd '^B' open_claude_popup
+
       # Atuin
       if command -v atuin &> /dev/null; then
         # Delay Atuin init until after zsh-vi-mode init to prevent overwriting of keybinds
         zvm_after_init_commands+=(eval "$(${lib.getExe pkgs.atuin} init zsh --disable-up-arrow)")
       fi
+
+      # Popman - Initialize after zsh-vi-mode to prevent keybinding conflicts
+      zvm_after_init_commands+=('source ${popman_repo}/popman.plugin.zsh')
 
       # TODO: These functionsb are not loaded somehow
       # fpath+="$XDG_CONFIG_HOME/zsh/functions"
@@ -152,7 +162,10 @@
 
       mux = "tmuxinator";
 
-      htwconnect = "rbw get account.htw-berlin.de | sudo openconnect --protocol anyconnect --passwd-on-stdin --user=s0566845@htw-berlin.de --authgroup=HTW-SSL-VPN-Full https://vpncl.htw-berlin.de";
+      img = "qimgv";
+      ed = "zeditor";
+
+      tt = "toggle-theme";
     };
   };
 

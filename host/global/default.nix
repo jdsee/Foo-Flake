@@ -14,6 +14,9 @@
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs outputs; };
     backupFileExtension = "bak";
+    sharedModules = [
+      inputs.linked-planet.homeManagerModules.linked-planet
+    ];
   };
 
   nixpkgs = {

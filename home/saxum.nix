@@ -1,30 +1,33 @@
 { pkgs, inputs, ... }:
 let
   apps = with pkgs; [
-    google-chrome
-    ferdium
-    signal-desktop
+    discord
     element-desktop
+    ferdium
+    # freecad
+    chromium
+    signal-desktop
     slack
     youtube-music
+    # davinci-resolve <- buggy under wayland :(
   ];
   utils = with pkgs; [
     bitwarden
     brightnessctl
+    exfatprogs
     gopass
     gparted
-    ntfs3g
-    exfatprogs
-    lswt # List wayland toplevels
-    slurp
+    lswt # list wayland toplevels
     networkmanagerapplet
+    ntfs3g
     pamixer
     playerctl
+    rustup
   ];
 in
 {
   imports = [
-    ./global.nix
+    ./nix.nix
     ./desktop
     ./lang/c.nix
     ./apps/firefox.nix
@@ -36,11 +39,7 @@ in
 
   home.packages = apps ++ utils;
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-      permittedInsecurePackages = [ ];
-    };
-  };
+  nixpkgs.overlays = [
+    inputs.nur.overlays.default
+  ];
 }

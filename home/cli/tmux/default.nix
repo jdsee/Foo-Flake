@@ -2,7 +2,7 @@
   programs.tmux = {
     enable = true;
     tmuxinator.enable = true;
-    package = pkgs.tmux-31c;
+    # package = pkgs.tmux-31c;
     extraConfig = builtins.readFile ./tmux.conf;
     keyMode = "vi";
     shortcut = "f";

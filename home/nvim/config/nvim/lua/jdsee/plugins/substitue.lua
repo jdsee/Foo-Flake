@@ -21,5 +21,9 @@ return {
     vim.keymap.set('n', 'gss', substitute.line, { noremap = true })
     vim.keymap.set('x', 'gs', substitute.visual, { noremap = true })
     vim.keymap.set('n', 'S', substitute.eol, { noremap = true })
+
+    vim.keymap.set("n", "gx", require('substitute.exchange').operator, { noremap = true })
+    vim.keymap.set("n", "gxx", require('substitute.exchange').line, { noremap = true })
+    vim.keymap.set("x", "X", require('substitute.exchange').visual, { noremap = true })
   end
 }

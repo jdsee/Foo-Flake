@@ -8,8 +8,12 @@ return {
   version = '1.6',
   opts = {
     keymap = {
-      preset   = 'default',
-      ['<CR>'] = { 'select_and_accept', 'fallback' },
+      preset    = 'default',
+      ['<CR>']  = { 'select_and_accept', 'fallback' },
+      ['<C-u>'] = { 'scroll_signature_up', 'fallback' },
+      ['<C-d>'] = { 'scroll_signature_down', 'fallback' },
+      ['<Tab>'] = { 'snippet_forward', 'select_next', 'fallback' },
+      ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
     },
 
     appearance = {
@@ -17,14 +21,15 @@ return {
     },
 
     completion = { documentation = { auto_show = false } },
+    signature = { enabled = true },
 
     sources = {
       default = {
         'lsp',
         'path',
         'snippets',
-        'buffer',
         'omni',
+        'buffer',
       },
     },
 
@@ -34,6 +39,17 @@ return {
     },
 
     providers = {
+      snippets = {
+        opts = {
+          friendly_snippets = true,
+          -- frameworks: https://github.com/rafamadriz/friendly-snippets/tree/main/snippets/frameworks
+          -- languages: https://github.com/rafamadriz/friendly-snippets/blob/main/package.json
+          extended_filetypes = {
+            sh = { 'shelldoc' },
+          },
+        }
+      },
+
       -- yank = {
       --   name = 'yank',
       --   module = 'blink-yanky',

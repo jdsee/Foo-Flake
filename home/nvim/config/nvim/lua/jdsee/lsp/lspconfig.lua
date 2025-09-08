@@ -47,6 +47,7 @@ return {
       helm_ls = {},                         -- helm
       zls = {},                             -- zig
       gopls = {},                           -- go
+      templ = {},                           -- templ (go)
       nextls = {                            -- elixir
         cmd = { "nextls", "--stdio" },
         init_options = {

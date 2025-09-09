@@ -38,11 +38,11 @@ in
         timeout = 420; # 7 min
         command = lockCmd;
       }
-      {
-        timeout = 480; # 8 min
-        command = "wlopm --off '*'";
-        resumeCommand = "wlopm --on '*'";
-      }
+      # {
+      #   timeout = 480; # 8 min
+      #   command = "wlopm --off '*'";
+      #   resumeCommand = "wlopm --on '*'";
+      # }
       {
         timeout = 1800; # 30 min
         command = "systemctl suspend";

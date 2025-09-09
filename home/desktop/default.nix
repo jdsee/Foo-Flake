@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./flameshot.nix
+    ./screenshot.nix
     ./fonts.nix
     ./foot.nix
     ./ghostty.nix

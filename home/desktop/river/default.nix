@@ -117,8 +117,9 @@
           "Super+Alt K" = "send-layout-cmd wideriver '--stack dwindle --count +1'";
 
           # Screenshots
-          "Super S" = "spawn 'XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=xcb flameshot gui'";
-          "Super+Shift S" = "spawn 'XDG_CURRENT_DESKTOP=sway QT_QPA_PLATFORM=xcb flameshot screen -r'";
+          "Super S" = "spawn 'shoot region'";
+          "Super+Shift S" = "spawn 'shoot screen'";
+          "Super+Control S" = "spawn 'shoot raw'";
 
           # Theme toggle
           "Super T" = "spawn 'toggle-theme'"; # TODO: This doesn't work -> Does river run gsettings for the correct user?
@@ -129,7 +130,7 @@
       # Environment
       export WLR_NO_HARDWARE_CURSORS=1
 
-      riverctl spawn "wbg $XDG_CONFIG_HOME/wallpaper/Road-Trip_2560x1440.png &"
+      riverctl spawn "wbg --stretch $XDG_CONFIG_HOME/wallpaper/Road-Trip_2560x1440.png &"
 
       # Mouse mappings
       riverctl map-pointer normal Super BTN_LEFT    move-view

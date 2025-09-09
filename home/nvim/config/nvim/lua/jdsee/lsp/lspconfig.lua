@@ -6,7 +6,10 @@ end
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = { 'saghen/blink.cmp' },
+  dependencies = {
+    { 'saghen/blink.cmp' },
+    { 'j-hui/fidget.nvim' },
+  },
   opts = {
     keymaps = {
       { 'n', 'gD',         vim.lsp.buf.declaration },
@@ -28,7 +31,7 @@ return {
       jsonls = {},                          -- json
       lemminx = {},                         -- xml
       phpactor = {},                        -- php
-      ts_ls = {},                           -- typescript/javascript
+      -- ts_ls = {},                           -- typescript/javascript
       vue_ls = {},                          -- vue
       ocamllsp = {},                        -- ocaml
       postgres_lsp = {},                    -- postgresql

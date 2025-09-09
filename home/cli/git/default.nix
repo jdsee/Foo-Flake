@@ -12,6 +12,10 @@
       last = "log -n 1 --stat";
       aa = "add --all";
       rb = "rebase";
+      rba = "rebase --abort";
+      rbc = "rebase --coninue";
+      rbs = "rebase --skip";
+      rbi = "rebase --interactive";
       cp = "cherry-pick";
       co = "checkout";
       cl = "clone";

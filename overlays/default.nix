@@ -31,19 +31,19 @@
       };
     });
 
-    flameshot-grim = prev.flameshot.overrideAttrs (oldAttrs: {
-      src = final.fetchFromGitHub {
-        owner = "flameshot-org";
-        repo = "flameshot";
-        rev = "v12.1.0";
-        sha256 = "sha256-omyMN8d+g1uYsEw41KmpJCwOmVWLokEfbW19vIvG79w=";
-      };
-      cmakeFlags = [
-        "-DUSE_WAYLAND_CLIPBOARD=1"
-        "-DUSE_WAYLAND_GRIM=1"
-      ];
-      buildInputs = oldAttrs.buildInputs ++ [ final.libsForQt5.kguiaddons ];
-    });
+    # flameshot-grim = prev.flameshot.overrideAttrs (oldAttrs: {
+    #   src = final.fetchFromGitHub {
+    #     owner = "flameshot-org";
+    #     repo = "flameshot";
+    #     rev = "v12.1.0";
+    #     sha256 = "sha256-omyMN8d+g1uYsEw41KmpJCwOmVWLokEfbW19vIvG79w=";
+    #   };
+    #   cmakeFlags = [
+    #     "-DUSE_WAYLAND_CLIPBOARD=1"
+    #     "-DUSE_WAYLAND_GRIM=1"
+    #   ];
+    #   buildInputs = oldAttrs.buildInputs ++ [ final.libsForQt5.kguiaddons ];
+    # });
 
   };
 }

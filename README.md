@@ -2,7 +2,8 @@
 
 This repository contains the configuration of my personal computer with [Nix](https://nixos.wiki/wiki/Nix_package_manager), [NixOS](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution) and [Home-Manager](https://nixos.wiki/wiki/Home_Manager).
 
-Feel free to use whatever you need but be aware that I'm still in the process of learning and things might not be implemented in an ideal way.
+You're welcome to use any of this!
+Just be aware that this is my personal learning playground where I'm not worried about scalability or design perfection since I'm the only user.
 
 ## Structure of this repository
 

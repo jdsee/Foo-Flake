@@ -20,6 +20,16 @@
     #   };
     # });
 
+    jetbrains = prev.jetbrains // {
+      idea-ultimate = prev.jetbrains.idea-ultimate.overrideAttrs (oldAttrs: rec {
+        version = "2025.1.6";
+        src = final.fetchurl {
+          url = "https://download.jetbrains.com/idea/ideaIU-${version}.tar.gz";
+          sha256 = "sha256-ndvgYQ2rikg/ShLd5YfZBsp//Tme7585X77b2Noxg0U=";
+        };
+      });
+    };
+
     tmux-31c = prev.tmux.overrideAttrs (old: rec {
       version = "3.1c";
       patches = [ ];

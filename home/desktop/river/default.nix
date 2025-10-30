@@ -74,9 +74,9 @@
           "Super+Control I" = "spawn 'nu ${../rofi/rofi-audio.nu} input'";
           "Super+Control E" = "spawn 'rofi emoji'";
           "Super+Control F" = "spawn 'rofi filebrowser'";
-          "Super V" = ''
-            spawn 'cliphist list | sed -E "s/^\w+\s+//" | rofi | wl-copy && wtype -s 50 -M ctrl -k v -m ctrl'
-          '';
+          # "Super V" = ''
+          #   spawn 'cliphist list | sed -E "s/^\w+\s+//" | rofi | wl-copy && wtype -s 50 -M ctrl -k v -m ctrl'
+          # '';
 
           # Applications
           "Super Return" = "spawn 'ghostty'";
@@ -138,14 +138,21 @@
       riverctl map-pointer normal Super BTN_MIDDLE  toggle-float
 
       # Tags / Workspaces
+      # btmrow=(_ z x c v b n m , . /)
       for i in $(seq 1 10)
       do
-        key=$(("$i " % 10))
         tags=$((1 << ("$i " - 1)))
-        riverctl map normal Super         "$key" spawn "$XDG_CONFIG_HOME/river/focus-view $i"
-        riverctl map normal Super+Shift   "$key" spawn "$XDG_CONFIG_HOME/river/send-view $i"
-        riverctl map normal Super+Alt     "$key" toggle-focused-tags "$tags"
-        riverctl map normal Super+Control "$key" toggle-view-tags "$tags"
+        # key=''${btmrow[$i]}
+        # riverctl map normal Super         "$key" spawn "$XDG_CONFIG_HOME/river/focus-view $i"
+        # riverctl map normal Super+Shift   "$key" spawn "$XDG_CONFIG_HOME/river/send-view $i"
+        # riverctl map normal Super+Alt     "$key" toggle-focused-tags "$tags"
+        # riverctl map normal Super+Control "$key" toggle-view-tags "$tags"
+
+        numkey=$(("$i " % 10))
+        riverctl map normal Super         "$numkey" spawn "$XDG_CONFIG_HOME/river/focus-view $i"
+        riverctl map normal Super+Shift   "$numkey" spawn "$XDG_CONFIG_HOME/river/send-view $i"
+        riverctl map normal Super+Alt     "$numkey" toggle-focused-tags "$tags"
+        riverctl map normal Super+Control "$numkey" toggle-view-tags "$tags"
       done
 
       riverctl map normal Super O focus-previous-tags

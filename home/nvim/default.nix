@@ -24,7 +24,7 @@ in
   };
 
   home.packages = with pkgs; [
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
     docker-compose-language-service
     elmPackages.elm-language-server
     gopls

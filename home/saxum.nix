@@ -6,6 +6,7 @@ let
     ferdium
     # freecad
     chromium
+    qutebrowser
     signal-desktop
     slack
     youtube-music

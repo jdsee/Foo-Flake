@@ -6,7 +6,7 @@
     installBatSyntax = true;
     installVimSyntax = true;
     settings = {
-      theme = "dark:neobones_dark,light:neobones_light";
+      theme = "dark:Neobones Dark,light:Neobones Light";
       font-family = "GeistMono Nerd Font";
       font-size = 15;
       mouse-hide-while-typing = true;

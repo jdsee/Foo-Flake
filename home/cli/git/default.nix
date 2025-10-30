@@ -17,9 +17,12 @@
       unstage = "reset HEAD - -";
       dc = "diff --cached";
       alias = "!git config - l | grep ^alias | cut - c 7 - | sort";
+      bi = "bisect";
 
-      # push
+      # push / pull
       p = "push";
+      pl = "pull";
+      plr = "push --rebase";
       fp = "push --force";
       fl = "push --force-with-lease";
       pwt = "push --atomic origin"; # Push branch and tag simultaneously: git pwt <branch> <tag>
@@ -32,7 +35,7 @@
       # rebase
       rb = "rebase";
       rba = "rebase --abort";
-      rbc = "rebase --coninue";
+      rbc = "rebase --continue";
       rbs = "rebase --skip";
       rbi = "rebase --interactive";
 

@@ -19,6 +19,7 @@
       gtk3
       icu
       libGL
+      libgbm
       libappindicator-gtk3
       libdrm
       libglvnd

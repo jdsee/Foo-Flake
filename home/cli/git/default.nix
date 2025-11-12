@@ -22,7 +22,7 @@
       # push / pull
       p = "push";
       pl = "pull";
-      plr = "push --rebase";
+      plr = "pull --rebase";
       fp = "push --force";
       fl = "push --force-with-lease";
       pwt = "push --atomic origin"; # Push branch and tag simultaneously: git pwt <branch> <tag>

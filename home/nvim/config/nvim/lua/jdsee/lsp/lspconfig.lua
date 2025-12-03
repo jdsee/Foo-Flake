@@ -18,20 +18,20 @@ return {
       { 'n', '<leader>a',  vim.lsp.buf.code_action },
       { 'n', '<Leader>rr', vim.lsp.buf.rename },
       { 'n', '<Leader>rn', vim.lsp.buf.rename },
-      { 'n', '<Leader>rf', vim.lsp.buf.format },
       { 'n', 'gh',         vim.diagnostic.open_float },
       { 'n', '<leader>ov', toggle_virtual_text },
       { 'i', '<C-o>',      vim.lsp.buf.signature_help },
     },
     servers = {
-      bashls = {},                          -- bash
-      cssls = {},                           -- css
-      elmls = {},                           -- elm
-      gleam = {},                           -- gleam
-      jsonls = {},                          -- json
-      lemminx = {},                         -- xml
-      phpactor = {},                        -- php
+      bashls = {},   -- bash
+      cssls = {},    -- css
+      elmls = {},    -- elm
+      gleam = {},    -- gleam
+      jsonls = {},   -- json
+      lemminx = {},  -- xml
+      phpactor = {}, -- php
       -- ts_ls = {},                           -- typescript/javascript
+      tailwindcss = {},
       vue_ls = {},                          -- vue
       ocamllsp = {},                        -- ocaml
       postgres_lsp = {},                    -- postgresql
@@ -68,6 +68,13 @@ return {
           "typescript", "typescript.tsx", "typescriptreact",
           "astro", "svelte", "vue", "css",
           "rescript",
+        },
+        settings = {
+          biome = {
+            formatting = {
+              enabled = true,
+            },
+          },
         },
       },
       lua_ls = { -- lua

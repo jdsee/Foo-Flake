@@ -9,12 +9,12 @@ return {
   opts = {
     keymap = {
       preset      = 'default',
-      ['<CR>']    = { 'select_and_accept', 'fallback' },
-      ['<C-u>']   = { 'scroll_signature_up', 'fallback' },
-      ['<C-d>']   = { 'scroll_signature_down', 'fallback' },
-      ['<Tab>']   = { 'snippet_forward', 'select_next', 'fallback' },
-      ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
-      ['<C-k>']   = { 'fallback' },
+      -- ['<CR>']    = { 'select_and_accept', 'fallback' },
+      -- ['<C-u>']   = { 'scroll_signature_up', 'fallback' },
+      -- ['<C-d>']   = { 'scroll_signature_down', 'fallback' },
+      -- ['<Tab>']   = { 'snippet_forward', 'select_next', 'fallback' },
+      -- ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
+      -- ['<C-k>']   = { 'fallback' },
     },
 
     appearance = {

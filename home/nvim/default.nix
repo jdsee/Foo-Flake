@@ -8,7 +8,7 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     plugins = with pkgs.vimPlugins; [
       nvim-treesitter.withAllGrammars
@@ -39,7 +39,7 @@ in
     nodePackages_latest.eslint
     nodePackages_latest.typescript-language-server
     ocamlPackages.ocaml-lsp
-    postgres-lsp
+    postgres-language-server
     sqls
     tailwindcss-language-server
     texlab

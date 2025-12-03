@@ -2,7 +2,6 @@
 let
   apps = with pkgs; [
     discord
-    element-desktop
     ferdium
     # freecad
     chromium
@@ -13,7 +12,7 @@ let
     # davinci-resolve <- buggy under wayland :(
   ];
   utils = with pkgs; [
-    bitwarden
+    bitwarden-desktop
     brightnessctl
     exfatprogs
     gopass

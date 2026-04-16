@@ -23,6 +23,7 @@ return {
       { 'i', '<C-o>',      vim.lsp.buf.signature_help },
     },
     servers = {
+      astro = {},    -- astro
       bashls = {},   -- bash
       cssls = {},    -- css
       elmls = {},    -- elm

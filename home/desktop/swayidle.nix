@@ -14,21 +14,14 @@ in
   ];
   services.swayidle = {
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = lockCmd;
-      }
-      {
-        event = "lock";
-        command = lockCmd;
-      }
+    events = {
+      "before-sleep" = lockCmd;
+      lock = lockCmd;
       # TODO: Turn on screen
-      # {
-      #   event = "after-resume";
+      # "after-resume" = {
       #   command = "swaymsg \"output * dpms on\"";
       # }
-    ];
+    };
     timeouts = [
       {
         timeout = 400;

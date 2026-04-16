@@ -1,9 +1,11 @@
 { pkgs, ... }: {
   imports = [
     ./atuin.nix
+    ./claude-code
     ./git
     ./gpg.nix
     ./nushell.nix
+    ./opencode.nix
     ./tmux
     ./tinker
     ./vim.nix
@@ -64,7 +66,6 @@
       rlwrap # Add history and easier navigation in line-reading programs
       nh # TODO: needed? -> Reimplementation of common nix-commands
       just # command runner
-      claude-code # ai ¯\_(ツ)_/¯
       libimobiledevice
       ifuse
       git-crypt

@@ -81,7 +81,8 @@
         clone-multibranch = "!sh ~/.config/git/clone_bare_for_worktrees.sh";
 
         # log
-        l = "log --oneline";
+        l = "!nvim -c ':0G log'";
+        lo = "log --oneline";
         lh = "log --oneline -n 15";
         last = "log -n 1 --stat";
         lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
@@ -132,9 +133,6 @@
       enable = true;
       hosts = [ "https://github.com" ];
     };
-    extensions = with pkgs; [
-      gh-copilot
-    ];
   };
 
   programs.gh-dash = {

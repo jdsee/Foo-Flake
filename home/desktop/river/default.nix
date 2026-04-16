@@ -50,6 +50,7 @@
         "waybar"
         "nm-applet"
         "flameshot"
+        "kanshi"
         "wl-paste -t text --watch cliphist store"
         "wl-paste -t image --watch cliphist store"
       ];

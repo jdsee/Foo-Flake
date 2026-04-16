@@ -8,6 +8,7 @@
     ./locale.nix
     ./nix.nix
     ./nix-ld.nix
+    ../../secrets/nm-profiles.nix
   ];
 
   home-manager = {

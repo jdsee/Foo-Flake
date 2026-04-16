@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  idea-cli = pkgs.writeShellScriptBin "idea" ''
+  idea-cli = pkgs.writeShellScriptBin "idea-cli" ''
     #!/usr/bin/env sh
     PROJECT=''${1:-.}
     NOW=$(date +%F-%T%z)

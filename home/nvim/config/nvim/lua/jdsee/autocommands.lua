@@ -116,39 +116,66 @@ local function setup_yank_highlight()
 end
 
 -- Flash on tmux focus (responds to focus events from tmux)
-local tmux_flash_timer = nil
+local tmux_flash_state = {}
 local function setup_tmux_focus_flash()
   vim.api.nvim_create_autocmd({ 'FocusGained' }, {
     group = vim.api.nvim_create_augroup("TmuxFocusFlash", { clear = true }),
     callback = function()
-      if tmux_flash_timer then
-        vim.fn.timer_stop(tmux_flash_timer)
+      local current_win = vim.api.nvim_get_current_win()
+
+      -- Clean up any existing flash for this window
+      if tmux_flash_state[current_win] then
+        vim.fn.timer_stop(tmux_flash_state[current_win].timer)
+        if vim.api.nvim_win_is_valid(current_win) then
+          vim.wo[current_win].winhighlight = tmux_flash_state[current_win].original_hl
+        end
       end
 
-      vim.api.nvim_set_hl(0, "TmuxFlash", { bg = '#ffdf87' })
-      local current_win = vim.api.nvim_get_current_win()
-      local win_hl = vim.wo[current_win].winhighlight
+      -- Store original state
+      local original_hl = vim.wo[current_win].winhighlight
+      tmux_flash_state[current_win] = {
+        original_hl = original_hl,
+        timer = nil
+      }
 
-      -- flash
+      vim.api.nvim_set_hl(0, "TmuxFlash", { bg = '#ffdf87' })
+
+      -- Apply flash
       vim.wo[current_win].winhighlight = 'Normal:TmuxFlash'
 
-      tmux_flash_timer = vim.fn.timer_start(50, function()
-        if vim.api.nvim_win_is_valid(current_win) then
-          vim.wo[current_win].winhighlight = win_hl
+      -- Schedule revert with safer timing
+      tmux_flash_state[current_win].timer = vim.fn.timer_start(150, function()
+        if vim.api.nvim_win_is_valid(current_win) and tmux_flash_state[current_win] then
+          vim.wo[current_win].winhighlight = tmux_flash_state[current_win].original_hl
+          tmux_flash_state[current_win] = nil
         end
-        tmux_flash_timer = nil
       end)
+    end
+  })
+
+  -- Clean up on window close
+  vim.api.nvim_create_autocmd({ 'WinClosed' }, {
+    group = vim.api.nvim_create_augroup("TmuxFocusFlashCleanup", { clear = true }),
+    callback = function(event)
+      local win = tonumber(event.match)
+      if tmux_flash_state[win] then
+        vim.fn.timer_stop(tmux_flash_state[win].timer)
+        tmux_flash_state[win] = nil
+      end
     end
   })
 
   -- Emergency reset keymap
   vim.keymap.set('n', '<leader>tf', function()
-    local current_win = vim.api.nvim_get_current_win()
-    vim.wo[current_win].winhighlight = ''
-    if tmux_flash_timer then
-      vim.fn.timer_stop(tmux_flash_timer)
-      tmux_flash_timer = nil
+    for win, state in pairs(tmux_flash_state) do
+      if state.timer then
+        vim.fn.timer_stop(state.timer)
+      end
+      if vim.api.nvim_win_is_valid(win) then
+        vim.wo[win].winhighlight = state.original_hl
+      end
     end
+    tmux_flash_state = {}
     print("Tmux flash reset")
   end, { desc = "Reset tmux flash highlighting" })
 end

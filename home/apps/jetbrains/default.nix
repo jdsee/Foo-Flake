@@ -3,7 +3,7 @@
     ./idea-cli.nix
   ];
   home.packages = with pkgs.jetbrains; [
-    idea-ultimate
+    idea
   ];
   xdg.configFile = {
     "ideavim/ideavimrc".source = ./ideavimrc;

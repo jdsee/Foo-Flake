@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./global
@@ -22,6 +22,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-059042ae-dbcd-4cb8-bb6d-87e4ab50830f".device = "/dev/disk/by-uuid/059042ae-dbcd-4cb8-bb6d-87e4ab50830f";
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking = {
     hostName = "saxum";
@@ -49,9 +50,7 @@
 
   programs = {
     zsh.enable = true;
-    light.enable = true;
     dconf.enable = true;
-    adb.enable = false;
     kdeconnect.enable = false;
   };
 

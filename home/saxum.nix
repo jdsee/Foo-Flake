@@ -2,14 +2,18 @@
 let
   apps = with pkgs; [
     discord
-    ferdium
     # freecad
     chromium
     qutebrowser
+    obsidian
     signal-desktop
     slack
-    youtube-music
     # davinci-resolve <- buggy under wayland :(
+
+    # Electron Multi-App Wrapper (TODO: choose one)
+    ferdium
+    franz
+    rambox
   ];
   utils = with pkgs; [
     bitwarden-desktop

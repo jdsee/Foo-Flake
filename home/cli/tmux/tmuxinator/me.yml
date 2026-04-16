@@ -45,3 +45,7 @@ windows:
       panes:
         - nvim -c "Telescope git_files"
         - git status
+  - notes:
+      root: ~/vaults/notes
+      panes:
+        - nvim -c "Obsidian today"

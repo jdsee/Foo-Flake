@@ -34,7 +34,6 @@ in
     helm-ls
     nil
     nixpkgs-fmt
-    next-ls
     nodePackages_latest.bash-language-server
     nodePackages_latest.eslint
     nodePackages_latest.typescript-language-server

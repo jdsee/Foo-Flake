@@ -71,7 +71,7 @@ in
         . $HOME/.nix-profile/etc/profile.d/nix.sh
       fi
       if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
-        exec river
+        exec dbus-run-session river
       fi
     '';
 
@@ -165,6 +165,7 @@ in
       ed = "zeditor";
 
       tt = "toggle-theme";
+      ai = "opencode";
     };
   };
 

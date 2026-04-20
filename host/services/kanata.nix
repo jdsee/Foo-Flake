@@ -7,7 +7,7 @@
         (defsrc)
 
         (defalias
-          esctl (multi f24 (tap-hold-press 150 150 esc lctl)))
+          esctl (tap-hold-press 150 150 esc lctl))
 
         (deflayermap (base-layer)
           lctl @esctl

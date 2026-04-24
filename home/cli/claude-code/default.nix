@@ -5,6 +5,6 @@
       story = ./commands/story.md;
       bug = ./commands/bug.md;
     };
-    memory.source = ./memory.md;
+    context = ./context.md;
   };
 }

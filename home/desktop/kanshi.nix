@@ -1,7 +1,11 @@
 { ... }: {
+  systemd.user.sessionVariables = {
+    WAYLAND_DISPLAY = "$WAYLAND_DISPLAY";
+  };
+
   services.kanshi = {
     enable = true;
-    systemdTarget = "graphical-session.target";
+    systemdTarget = "river-session.target";
     settings = [
       {
         profile = {

@@ -1,5 +1,9 @@
 # Memory – Joscha Seelig
 
+## Coding Projects
+
+- dev commands often declared in .justfile
+
 ## Communication Style
 
 ### Language

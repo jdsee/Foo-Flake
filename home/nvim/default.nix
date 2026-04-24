@@ -8,7 +8,8 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # Temporarily use stable neovim due to build issue with nightly overlay
+    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     plugins = with pkgs.vimPlugins; [
       nvim-treesitter.withAllGrammars
@@ -21,6 +22,7 @@ in
 
     withNodeJs = true;
     withPython3 = true;
+    withRuby = false;
   };
 
   home.packages = with pkgs; [
@@ -34,9 +36,9 @@ in
     helm-ls
     nil
     nixpkgs-fmt
-    nodePackages_latest.bash-language-server
-    nodePackages_latest.eslint
-    nodePackages_latest.typescript-language-server
+    bash-language-server
+    eslint
+    typescript-language-server
     ocamlPackages.ocaml-lsp
     postgres-language-server
     sqls

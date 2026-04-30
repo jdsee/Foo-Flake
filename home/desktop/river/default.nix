@@ -19,26 +19,39 @@
     mimeType = [ ];
   };
 
-  xdg.configFile = {
-    "river/reload" = {
-      source = ./reload_river.sh;
-      executable = true;
+  xdg = {
+    dataFile."display-management/config.yaml" = {
+      text = ''
+        primary:
+          port: DP-3
+          tags: [1, 2, 3, 4, 5, 6]
+        secondary:
+          port: DP-4
+          tags: [7, 8, 9, 10]
+      '';
     };
-    "river/focus-view" = {
-      source = ./focus-view.sh;
-      executable = true;
-    };
-    "river/send-view" = {
-      source = ./send-view.sh;
-      executable = true;
-    };
-    "river/nvim-input" = {
-      source = ./nvim-input.sh;
-      executable = true;
-    };
-    "river/nvim-edit" = {
-      source = ./nvim-edit.sh;
-      executable = true;
+
+    configFile = {
+      "river/reload" = {
+        source = ./reload_river.sh;
+        executable = true;
+      };
+      "river/focus-view" = {
+        source = ./focus-view.sh;
+        executable = true;
+      };
+      "river/send-view" = {
+        source = ./send-view.sh;
+        executable = true;
+      };
+      "river/nvim-input" = {
+        source = ./nvim-input.sh;
+        executable = true;
+      };
+      "river/nvim-edit" = {
+        source = ./nvim-edit.sh;
+        executable = true;
+      };
     };
   };
 
@@ -242,8 +255,6 @@
 
       dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
       systemctl --user set-environment XDG_CURRENT_DESKTOP=river
-      systemctl --user stop pipewire xdg-desktop-portal xdg-desktop-portal-wlr wireplumber
-      systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr wireplumber
     '';
   };
 }

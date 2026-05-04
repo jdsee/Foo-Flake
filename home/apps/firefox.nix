@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home = {
     sessionVariables.BROWSER = "firefox";
@@ -16,6 +16,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles = {
       jdsee = {
         id = 0;
@@ -71,7 +72,7 @@
           "signon.rememberSignons" = true;
         };
         containers.test = {
-          id = 0;
+          id = 1;
           name = "Test Container";
           color = "green";
           icon = "tree";

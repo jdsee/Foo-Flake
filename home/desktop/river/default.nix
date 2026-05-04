@@ -142,7 +142,7 @@
     };
     extraConfig = ''
       # Environment
-      export WLR_NO_HARDWARE_CURSORS=1
+      # export WLR_NO_HARDWARE_CURSORS=1
 
       riverctl spawn "wbg --stretch $XDG_CONFIG_HOME/wallpaper/Road-Trip_2560x1440.png &"
 
@@ -255,6 +255,7 @@
 
       dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
       systemctl --user set-environment XDG_CURRENT_DESKTOP=river
+      systemctl --user restart xdg-desktop-portal-wlr.service
     '';
   };
 }

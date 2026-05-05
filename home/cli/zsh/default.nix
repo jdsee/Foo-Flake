@@ -66,15 +66,6 @@ in
       LAUNCHER = "launcher_t4";
     };
 
-    profileExtra = ''
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-        . $HOME/.nix-profile/etc/profile.d/nix.sh
-      fi
-      if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
-        exec dbus-run-session river
-      fi
-    '';
-
     initContent = ''
       autoload -U promptinit; promptinit
       prompt pure

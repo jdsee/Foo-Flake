@@ -11,9 +11,9 @@
     ./mako.nix
     ./mime-types.nix
     ./rbw.nix
-    ./river
+    # ./river
     ./kanata
-    # ./hyprland.nix
+    ./hyprland
     ./swayidle.nix
     ./toggle-theme.nix
     ./tofi

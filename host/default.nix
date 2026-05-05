@@ -5,7 +5,7 @@
     ./users/jdsee
 
     ./systemd-boot.nix
-    ./xdg-desktop-portal.nix
+    # ./xdg-desktop-portal.nix
     ./yubikey.nix
     ./nvidia.nix
     ./obs-virtual-cam.nix
@@ -41,6 +41,8 @@
   environment.systemPackages = with pkgs; [
     openssl
   ];
+
+  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
 
   security = {
     rtkit.enable = true;

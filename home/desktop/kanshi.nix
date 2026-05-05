@@ -5,7 +5,6 @@
 
   services.kanshi = {
     enable = true;
-    systemdTarget = "river-session.target";
     settings = [
       {
         profile = {

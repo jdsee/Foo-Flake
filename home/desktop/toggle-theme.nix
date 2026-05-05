@@ -18,14 +18,6 @@ let
       dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
       new_theme="dark"
     fi
-
-    # # Signal Ghostty to reload config (if running)
-    # for pid in $(pgrep ghostty); do
-    #   if kill -0 "$pid" 2>/dev/null; then
-    #     echo "Signaling Ghostty (PID: $pid) to reload config..."
-    #     kill -USR2 "$pid" || true
-    #   fi
-    # done
   '';
 in
 {

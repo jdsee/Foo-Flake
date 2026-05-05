@@ -19,6 +19,17 @@
     mimeType = [ ];
   };
 
+  services.kanshi.systemdTarget = "river-session.target";
+
+  programs.zsh.profileExtra = ''
+    if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+      . $HOME/.nix-profile/etc/profile.d/nix.sh
+    fi
+    if [ -z "$WAYLAND_DISPLAY" ] && [ $(tty) = "/dev/tty1" ]; then
+      exec dbus-run-session river
+    fi
+  '';
+
   xdg = {
     dataFile."display-management/config.yaml" = {
       text = ''
@@ -88,6 +99,7 @@
           "Super+Control I" = "spawn 'nu ${../rofi/rofi-audio.nu} input'";
           "Super+Control E" = "spawn 'rofi emoji'";
           "Super+Control F" = "spawn 'rofi filebrowser'";
+          "Super+Control G" = "spawn 'nu ${../rofi/rofi-gh.nu}'";
           # "Super V" = ''
           #   spawn 'cliphist list | sed -E "s/^\w+\s+//" | rofi | wl-copy && wtype -s 50 -M ctrl -k v -m ctrl'
           # '';
@@ -222,7 +234,7 @@
       riverctl rule-add -app-id firefox ssd
       riverctl rule-add -app-id firefox -title '*Bitwarden*' float # FIXME: This isn't working yet
       riverctl rule-add -title "MainPicker" float
-      riverctl rule-add -app-id nvim-input float
+      # riverctl rule-add -app-id nvim-input float
       riverctl rule-add -app-id dev.zed.Zed ssd
       riverctl rule-add -app-id org.pulseaudio.pavucontrol ssd
       riverctl rule-add -app-id gpartedbin ssd
@@ -253,9 +265,9 @@
           --log-threshold                info        \
          > "/tmp/wideriver.''${XDG_VTNR}.''${USER}.log" 2>&1 &
 
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+      # dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
       systemctl --user set-environment XDG_CURRENT_DESKTOP=river
-      systemctl --user restart xdg-desktop-portal-wlr.service
+      # systemctl --user restart xdg-desktop-portal-wlr.service
     '';
   };
 }

@@ -20,7 +20,7 @@
         "\\x1b[105;5u" = "Control+i"; # Send Tab-Escape-Sequence as <C-i>
       };
 
-      colors = {
+      colors-dark = {
         # https://codeberg.org/dnkl/foot/src/branch/master/themes/tokyonight-night
         background = "1a1b26";
         foreground = "c0caf5";

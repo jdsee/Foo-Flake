@@ -57,11 +57,11 @@ window#waybar.empty #window {
 }
 
 #tags button.focused {
-  border-top: 2px solid #F79B56;
+  border-top: 0px solid #F79B56;
 }
 
 #tags button.urgent {
-  border-top: 2px solid #c9545d;
+  border: 2px solid #c9545d;
 }
 
 /* Mako */
@@ -87,7 +87,7 @@ window#waybar.empty #window {
 
 #workspaces button.active {
   color: #F79B56;
-  border-top: 2px solid #F79B56;
+  border-top: 0px solid #F79B56;
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -159,16 +159,16 @@ window#waybar.empty #window {
 #taskbar button:hover {
   padding-left: 3px;
   padding-right: 3px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+  /* animation: gradient_f 20s ease-in infinite; */
+  /* transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682); */
 }
 
 #taskbar button.active {
   background-color: #7f849c;
   padding-left: 12px;
   padding-right: 12px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+  /* animation: gradient_f 20s ease-in infinite; */
+  /* transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682); */
 }
 
 #battery.critical:not(.charging) {

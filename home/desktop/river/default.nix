@@ -1,8 +1,8 @@
 { pkgs, ... }: {
   imports = [
+    ./waybar
     ../rofi
     ../wallpaper
-    ../waybar
   ];
 
   home.packages = with pkgs; [

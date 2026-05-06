@@ -3,6 +3,7 @@
 , config
 , ...
 }:
+# TODO: Consider removing the user service, since system service runs already
 let
   kanataExe = lib.getExe pkgs.kanata;
   configDir = "kanata";
@@ -24,15 +25,17 @@ in
     Unit = {
       Description = "Kanata Keyboard Remapper";
       Documentation = "https://github.com/jtroo/kanata";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = [ "graphical-session.target" ];
     };
     Service = {
-      Environment = [ "DISPLAY=:0" ];
       Type = "simple";
       ExecStart = "${kanataExe} --cfg ${configPath}";
-      Restart = "no";
+      Restart = "on-failure";
+      RestartSec = "1s";
     };
   };
 }

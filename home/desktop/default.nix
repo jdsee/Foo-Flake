@@ -1,24 +1,27 @@
 { pkgs, ... }: {
   imports = [
+    # ./river
+    ./espanso.nix
     ./flameshot.nix
-    ./screenshot.nix
     ./fonts.nix
     ./foot.nix
-    ./ghostty.nix
     ./gammastep.nix
+    ./ghostty.nix
     ./gtk.nix
+    ./hyprland
+    ./hyprlock.nix
     ./kanshi.nix
     ./mako.nix
     ./mime-types.nix
+    ./monitors.nix
     ./rbw.nix
-    # ./river
-    ./kanata
-    ./hyprland
+    ./rofi
+    ./screenshot.nix
     ./swayidle.nix
-    ./toggle-theme.nix
     ./tofi
+    ./toggle-theme.nix
+    ./wallpaper
     ./wayland-pipewire-idle-inhibit.nix
-    ./hyprlock.nix
   ];
 
   home.sessionVariables = {

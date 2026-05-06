@@ -1,7 +1,4 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, config, ... }:
 let
   popman_repo = pkgs.fetchFromGitHub {
     owner = "jdsee";
@@ -16,7 +13,7 @@ in
     enableCompletion = false; # slows down session start when enabled
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-
+    dotDir = "${config.xdg.configHome}/zsh";
     defaultKeymap = "viins";
 
     plugins = [

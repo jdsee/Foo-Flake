@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, ... }:
 {
   programs.hyprlock = {
     enable = true;
@@ -12,7 +12,16 @@
       background = [
         {
           monitor = "";
-          path = "/home/jdsee/.config/wallpaper/Road-Trip_2560x1440.png";
+          path = config.wallpaper.dark.primary;
+          blur_passes = 3;
+          contrast = 0.8916;
+          brightness = 0.8172;
+          vibrancy = 0.1696;
+          vibrancy_darkness = 0.0;
+        }
+        {
+          monitor = "desc:${config.monitors.secondary}";
+          path = config.wallpaper.dark.secondary;
           blur_passes = 3;
           contrast = 0.8916;
           brightness = 0.8172;
@@ -23,7 +32,11 @@
 
       label = [
         {
-          monitor = "";
+          monitor = [
+            "eDP-1"
+            "HDMI-1"
+            "desc:${config.monitors.primary}"
+          ];
           text = "cmd[update:1000] echo -e \"$(date +\"%A, %B %d\")\"";
           color = "rgba(216, 222, 233, 0.70)";
           font_size = 25;
@@ -33,7 +46,11 @@
           valign = "center";
         }
         {
-          monitor = "";
+          monitor = [
+            "eDP-1"
+            "HDMI-1"
+            "desc:${config.monitors.primary}"
+          ];
           text = "cmd[update:1000] echo \"<span>$(date +\"%I:%M\")</span>\"";
           color = "rgba(216, 222, 233, 0.70)";
           font_size = 120;
@@ -43,7 +60,11 @@
           valign = "center";
         }
         {
-          monitor = "";
+          monitor = [
+            "eDP-1"
+            "HDMI-1"
+            "desc:${config.monitors.primary}"
+          ];
           text = "    $USER";
           color = "rgba(216, 222, 233, 0.80)";
           outline_thickness = 2;
@@ -60,7 +81,11 @@
 
       shape = [
         {
-          monitor = "";
+          monitor = [
+            "eDP-1"
+            "HDMI-1"
+            "desc:${config.monitors.primary}"
+          ];
           size = "300, 60";
           color = "rgba(255, 255, 255, .1)";
           rounding = -1;
@@ -76,7 +101,11 @@
 
       input-field = [
         {
-          monitor = "";
+          monitor = [
+            "eDP-1"
+            "HDMI-1"
+            "desc:${config.monitors.primary}"
+          ];
           size = "300, 60";
           outline_thickness = 2;
           dots_size = 0.2;

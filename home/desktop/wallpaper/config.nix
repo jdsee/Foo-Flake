@@ -31,11 +31,11 @@
   config = {
     wallpaper = {
       light = {
-        primary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-light.png";
-        secondary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-portrait-light.png";
+        primary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-3-light.png";
+        secondary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-2-portrait-light.png";
       };
       dark = {
-        primary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-dark.png";
+        primary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-3-dark.png";
         secondary = "$XDG_CONFIG_HOME/wallpaper/zen-coder-portrait-dark.png";
       };
     };

@@ -5,7 +5,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-context',
+    -- 'nvim-treesitter/nvim-treesitter-context',
     'rescript-lang/tree-sitter-rescript',
   },
   build = ':TSUpdate',
@@ -17,7 +17,7 @@ return {
         'html', 'javascript', 'typescript', 'svelte', 'vue', 'tsx', 'rescript', 'css', 'xml', 'php', 'markdown'
       },
       highlight = {
-        enable = true,
+        enable = false,
       },
       textobjects = {
         select = {

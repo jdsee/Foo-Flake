@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.pointerCursor = {
+    enable = true;
     name = "WhiteSur-cursors";
     package = pkgs.whitesur-cursors;
   };

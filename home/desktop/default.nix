@@ -19,6 +19,7 @@
     ./screenshot.nix
     ./swayidle.nix
     ./tofi
+    ./toggle-jira-locale.nix
     ./toggle-theme.nix
     ./wallpaper
     ./wayland-pipewire-idle-inhibit.nix

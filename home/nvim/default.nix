@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
+
 let
   kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix { };
 in
@@ -51,9 +52,7 @@ in
     vscode-langservers-extracted # html/css/json/eslint
     yaml-language-server
     zls
-    kotlin-language-server
-  ] ++ [
-    # kotlin-lsp
+    kotlin-lsp
   ];
 
   xdg.configFile = {

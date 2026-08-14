@@ -32,10 +32,14 @@
       help = {
         autoCorrect = 0;
       };
-      user.signingKey = "2B401F46E5C119E1";
+      user.signingKey = "6128A43A0BC671ED";
       commit.gpgSign = true;
       tag.gpgSign = true;
       rebase.autoStash = true;
+      rerere = {
+        enabled = true;
+        autoupdate = false; # update index automatically after rerere
+      };
 
       alias = {
         # general

@@ -1,59 +1,59 @@
 {
-  lib,
   stdenv,
+  stdenvNoCC,
   fetchzip,
-  openjdk,
   makeWrapper,
-  maven,
+  jdk25,
+  autoPatchelfHook,
 }:
-
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kotlin-lsp";
-  version = "0.253.10629";
+  version = "262.9593.0";
+
   src = fetchzip {
-    stripRoot = false;
-    url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-${version}.zip";
-    hash = "sha256-LCLGo3Q8/4TYI7z50UdXAbtPNgzFYtmUY/kzo2JCln0=";
+    url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${finalAttrs.version}/kotlin-server-${finalAttrs.version}.tar.gz";
+    sha256 = "sha256-6ajvuyFga+IL9eLqNKCPphdVwRxpFQSQOy54HGreEqw=";
   };
 
-  dontBuild = true;
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+  ];
+
+  buildInputs = [
+    jdk25
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib
-    mkdir -p $out/native
-    mkdir -p $out/bin
-    cp -r lib/* $out/lib
-    cp -r native/* $out/native
-    chmod +x kotlin-lsp.sh
-    cp "kotlin-lsp.sh" "$out/kotlin-lsp.sh"
-    ln -s $out/kotlin-lsp.sh $out/bin/kotlin-lsp
+    mkdir -p $out/bin $out/share/kotlin-lsp
+    cp -r bin build.txt kotlin-lsp.sh lib license modules plugins product-info.json $out/share/kotlin-lsp
+    ln -s ${jdk25}/lib/openjdk $out/share/kotlin-lsp/jbr
+
+    makeWrapper $out/share/kotlin-lsp/bin/intellij-server $out/bin/kotlin-lsp
 
     runHook postInstall
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  # kotlin-lsp has no --version, so instead of versionCheckHook drive a
+  # minimal LSP initialize handshake over stdio and assert the server
+  # replies with a framed JSON-RPC message. This exercises the JVM launch
+  # and the patched native libraries, which is where breakage tends to hide.
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
 
-  postFixup = ''
-    wrapProgram "$out/bin/kotlin-lsp" --set JAVA_HOME ${openjdk} --prefix PATH : ${
-      lib.strings.makeBinPath [
-        openjdk
-        maven
-      ]
+    req='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"processId":null,"rootUri":null,"capabilities":{}}}'
+    printf 'Content-Length: %d\r\n\r\n%s' "''${#req}" "$req" \
+      | timeout 120 $out/bin/kotlin-lsp --stdio > response.txt 2>/dev/null || true
+
+    grep -q '"jsonrpc"' response.txt || {
+      echo "kotlin-lsp did not respond to an LSP initialize request" >&2
+      exit 1
     }
-  '';
 
-  meta = {
-    description = "LSP implementation for Kotlin code completion, linting";
-    maintainers = with lib.maintainers; [ p-louis ];
-    homepage = "https://github.com/Kotlin/kotlin-lsp";
-    changelog = "https://github.com/Kotlin/kotlin-lsp/blob/kotlin-lsp/v${version}/RELEASES.md";
-    license = lib.licenses.asl20;
-    platforms = lib.platforms.unix;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
-    mainProgram = "kotlin-lsp";
-  };
-}
+    runHook postInstallCheck
+  '';
+})

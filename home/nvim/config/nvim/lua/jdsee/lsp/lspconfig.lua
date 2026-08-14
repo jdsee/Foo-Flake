@@ -44,7 +44,6 @@ return {
       rescriptls = {},                      -- rescript
       nushell = {},                         -- nushell
       metals = {},                          -- scala
-      kotlin_language_server = {},          -- kotlin (inofficial)
       kotlin_lsp = {},                      -- kotlin (official, pre alpha)
       docker_compose_language_service = {}, -- docker-compose
       dockerls = {},                        -- dockerfile

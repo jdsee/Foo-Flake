@@ -20,7 +20,9 @@
       allowUnfree = true;
       allowUnfreePredicate = _: true;
       allowBroken = true;
-      permittedInsecurePackages = [ ];
+      permittedInsecurePackages = [
+        "electron-39.8.10"
+      ];
     };
   };
 

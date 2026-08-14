@@ -1,32 +1,35 @@
 { pkgs, lib, config, ... }:
 let
   brightnessctl = lib.getExe pkgs.brightnessctl;
-  cliphist = lib.getExe pkgs.cliphist;
   firefox = lib.getExe pkgs.firefox;
   flameshot = lib.getExe pkgs.flameshot;
   ghostty = lib.getExe pkgs.ghostty;
   hyprlock = lib.getExe pkgs.hyprlock;
   kanshi = lib.getExe pkgs.kanshi;
-  makoctl = lib.getExe pkgs.mako;
   nm-applet = lib.getExe pkgs.networkmanagerapplet;
   nu = lib.getExe pkgs.nushell;
   pamixer = lib.getExe pkgs.pamixer;
   playerctl = lib.getExe pkgs.playerctl;
   rofi = lib.getExe pkgs.rofi;
   waybar = lib.getExe pkgs.waybar;
-  wl-paste = lib.getExe pkgs.wl-clipboard;
 in
 {
   imports = [
     ./waybar.nix
+    # ./ashell.nix
   ];
 
   # Hyprland
   # ══════════════════════════════════════════════════════════════
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       "$mod" = "SUPER";
+
+      env = [
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+      ];
 
       general = {
         gaps_in = 0;
@@ -148,8 +151,8 @@ in
         "$mod ALT, T, exec, toggle-theme"
 
         # Notifications
-        "$mod, D, exec, ${makoctl} dismiss"
-        "$mod ALT, D, exec, ${makoctl} mode -t mute"
+        "$mod, D, exec, makoctl dismiss"
+        "$mod ALT, D, exec, makoctl mode -t mute"
 
         # Monitor focus
         "$mod, N, focusmonitor, +1"
@@ -197,8 +200,6 @@ in
         "${nm-applet}"
         "${flameshot}"
         "${kanshi}"
-        "${wl-paste} -t text --watch ${cliphist} store"
-        "${wl-paste} -t image --watch ${cliphist} store"
       ];
     };
   };

@@ -11,7 +11,7 @@ let
       dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
 
       hyprctl hyprpaper wallpaper ",${config.wallpaper.light.primary}"
-      hyprctl hyprpaper wallpaper "desc:${config.monitors.secondary},${config.wallpaper.light.secondary}"
+      hyprctl hyprpaper wallpaper "desc:${config.monitors.secondary},${config.wallpaper.light.secondary}" || true
     else
       echo "Switching to dark mode..."
       gsettings set org.gnome.desktop.interface color-scheme prefer-dark
@@ -20,7 +20,7 @@ let
       dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
 
       hyprctl hyprpaper wallpaper ",${config.wallpaper.dark.primary}"
-      hyprctl hyprpaper wallpaper "desc:${config.monitors.secondary},${config.wallpaper.dark.secondary}"
+      hyprctl hyprpaper wallpaper "desc:${config.monitors.secondary},${config.wallpaper.dark.secondary}" || true
     fi
   '';
   reset-theme = pkgs.writeShellScriptBin "reset-theme" "toggle-theme && toggle-theme";

@@ -117,6 +117,7 @@ in
     '';
 
     shellAliases = {
+      open = "xdg-open";
       vind = "nvim -c 'Telescope zoxide list'";
       vile = "nvim -c 'Telescope find_files'";
       fls = "nvim -c Oil";
@@ -161,6 +162,7 @@ in
     enable = true;
     enableZshIntegration = true;
     tmux.enableShellIntegration = false;
+    historyWidget.command = "";
   };
 
   programs.bat = {

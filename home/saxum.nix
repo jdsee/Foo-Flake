@@ -14,6 +14,7 @@ let
     ferdium
     franz
     rambox
+    libreoffice
   ];
   utils = with pkgs; [
     bitwarden-desktop

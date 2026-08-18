@@ -6,7 +6,7 @@
     };
   };
 
-  programs.regreet = {
+  services.displayManager.regreet = {
     enable = false;
     cageArgs = [ "-d" "-s" "-m" "last" ];
     settings = {

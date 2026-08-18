@@ -36,7 +36,7 @@ def list-connections [con_type: string] {
     | split column -r '\s{2,}'
     | drop column 1
     | rename name uuid type device
-    | filter { |c| $c.type == $con_type }
+    | where { |c| $c.type == $con_type }
     | each { |con|
         let active = nmcli -g GENERAL.STATE con show $con.name | str starts-with 'activ'
         $con | insert active $active

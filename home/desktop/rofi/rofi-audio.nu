@@ -1,7 +1,7 @@
 #! /usr/bin/env nu
 
 def main [direction: string] {
-  let ctx = match ($direction | str downcase ) {
+  let ctx = match ($direction | str lowercase ) {
     input  => {
       prompt: "Audio Input: ",
       options: (list-inputs),
@@ -49,7 +49,7 @@ def list-inputs [] {
   pactl -f json list sources
     | from json
     | select name description
-    | filter  { |source|
+    | where  { |source|
       not ($source.name | str ends-with ".monitor")
     }
 }

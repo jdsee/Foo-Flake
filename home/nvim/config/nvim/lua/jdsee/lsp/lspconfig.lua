@@ -31,7 +31,7 @@ return {
       jsonls = {},   -- json
       lemminx = {},  -- xml
       phpactor = {}, -- php
-      -- ts_ls = {},                           -- typescript/javascript
+      ts_ls = {},                           -- typescript/javascript
       tailwindcss = {},
       vue_ls = {},                          -- vue
       ocamllsp = {},                        -- ocaml

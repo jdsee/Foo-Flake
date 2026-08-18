@@ -14,6 +14,5 @@ return {
   { 'rebelot/kanagawa.nvim' },
   { 'EdenEast/nightfox.nvim' },
   { 'catppuccin/catppuccin' },
-  { 'shaunsingh/oxocarbon.nvim' },
   { 'mcchrish/zenbones.nvim',   dependencies = 'rktjmp/lush.nvim' }
 }

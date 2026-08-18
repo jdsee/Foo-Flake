@@ -17,7 +17,7 @@ return {
         'html', 'javascript', 'typescript', 'svelte', 'vue', 'tsx', 'rescript', 'css', 'xml', 'php', 'markdown'
       },
       highlight = {
-        enable = false,
+        enable = true,
       },
       textobjects = {
         select = {

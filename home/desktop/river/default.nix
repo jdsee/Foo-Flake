@@ -99,6 +99,7 @@
           "Super+Control I" = "spawn 'nu ${../rofi/rofi-audio.nu} input'";
           "Super+Control E" = "spawn 'rofi emoji'";
           "Super+Control F" = "spawn 'rofi filebrowser'";
+          "Super+Control P" = "spawn 'nu ${../rofi/rofi-proxy.nu}'";
           "Super+Control G" = "spawn 'nu ${../rofi/rofi-gh.nu}'";
           # "Super V" = ''
           #   spawn 'cliphist list | sed -E "s/^\w+\s+//" | rofi | wl-copy && wtype -s 50 -M ctrl -k v -m ctrl'

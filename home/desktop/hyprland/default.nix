@@ -91,6 +91,7 @@ in
         "$mod Control, I    , exec, ${nu} ${../rofi/rofi-audio.nu} input"
         "$mod Control, E    , exec, ${rofi} emoji"
         "$mod Control, F    , exec, ${rofi} filebrowser"
+        "$mod Control, P    , exec, ${nu} ${../rofi/rofi-proxy.nu}"
 
         # Misc.
         "$mod,       E, exec, $XDG_CONFIG_HOME/hypr/misc/nvim-input"

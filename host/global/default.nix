@@ -1,6 +1,7 @@
 { pkgs
 , inputs
 , outputs
+, self
 , ...
 }: {
   imports = [
@@ -13,7 +14,7 @@
 
   home-manager = {
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs; };
+    extraSpecialArgs = { inherit inputs outputs self; };
     backupFileExtension = "bak";
     sharedModules = [
       inputs.linked-planet.homeManagerModules.linked-planet

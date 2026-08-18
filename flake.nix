@@ -64,7 +64,7 @@
 
         saxum = nixpkgs.lib.nixosSystem {
           system = system;
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs self; };
           modules = [
             ./host
           ];
@@ -75,7 +75,7 @@
       homeConfigurations = {
         "jdsee@saxum" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
-          extraSpecialArgs = { inherit inputs outputs; };
+          extraSpecialArgs = { inherit inputs outputs self; };
           modules = [
             ./home/saxum.nix
           ];

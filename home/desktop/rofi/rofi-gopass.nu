@@ -41,7 +41,7 @@ if ($sel | is-empty) {
   exit 0
 }
 
-let content = gopass show $sel | lines | filter { |line| $line | is-not-empty }
+let content = gopass show $sel | lines | where { |line| $line | is-not-empty }
 let entries = $content
   | where $it =~ '^\s*\w+:'
   | each { |line|
@@ -58,7 +58,7 @@ let sel = [ autotype ] | append $field_keys | to text | choose | str trim
 
 match $sel {
   autotype => {
-    let user = $fields | where ($it.key | str downcase) in [ user username login ] | first
+    let user = $fields | where ($it.key | str lowercase) in [ user username login ] | first
     ($user.val | to text) | wtype -
     wtype -k 'Tab'
     ($pw.val | to text) | wtype -

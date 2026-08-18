@@ -37,6 +37,8 @@ in
     ./lang/c.nix
     ./apps/firefox.nix
     ./apps/obs.nix
+    ./apps/proxy.nix
+    ./apps/ssh.nix
     ./apps/jetbrains
     ./apps/zathura.nix
     ./apps/zed.nix

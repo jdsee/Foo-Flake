@@ -43,6 +43,11 @@
           "identity.fxaccounts.enabled" = false;
           "privacy.trackingprotection.enabled" = true;
           "signon.rememberSignons" = false;
+
+          # Route select hosts through the SSH SOCKS5 tunnel (ssh -N -D 127.0.0.1:1090 <proxy-name>).
+          "network.proxy.type" = 2;
+          "network.proxy.autoconfig_url" = "file://${config.proxy.pacFile}";
+          "network.proxy.socks_remote_dns" = true;
         };
       };
       apps = {
@@ -80,14 +85,4 @@
       };
     };
   };
-  #
-  # programs.firefoxpwa = {
-  #   enable = true;
-  #   profiles.jdsee.sites = {
-  #     webex = {
-  #       url = "web.webex.com";
-  #       manifestUrl = "https://web.webex.com/deb4489995ed246f.webmanifest";
-  #     };
-  #   };
-  # };
 }

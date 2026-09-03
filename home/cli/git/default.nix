@@ -47,9 +47,9 @@
         s = "status";
         sw = "switch";
         mt = "mergetool";
-        unstage = "reset HEAD - -";
+        unstage = "reset HEAD --";
         dc = "diff --cached";
-        alias = "!git config - l | grep ^alias | cut - c 7 - | sort";
+        alias = "!git config -l | grep ^alias | cut -c 7- | sort";
         bi = "bisect";
 
         # push / pull
@@ -91,25 +91,22 @@
         last = "log -n 1 --stat";
         lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
         res = "!git fetch && git reset origin/`git rev-parse --abbrev-ref HEAD` --hard";
-        graph = ''log --graph --color --pretty=format:"%C (yellow)%H%C (green)%d%C (reset)%n%x20%cd%n%x20%cn%x20 (%ce)%n%x20%s%n "'';
+        graph = ''log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n "'';
 
         # tag
-        inc-patch = ''
-          !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 "." $2 "." ($3 + 1) }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
-        '';
-        inc-minor = ''
-          !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 "." ($2 + 1) ".0" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
-        '';
-        inc-major = ''
-          !git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print ($1 + 1) ".0.0" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'
-        '';
+        inc-patch = "!git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 \".\" $2 \".\" ($3 + 1) }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'";
+        inc-minor = "!git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print $1 \".\" ($2 + 1) \".0\" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'";
+        inc-major = "!git tag --list --sort v:refname | tail -n 1 | awk -F. '{ print ($1 + 1) \".0.0\" }' | xargs -p -I _ sh -c 'git tag _ -m _ && git push && git push origin _'";
 
         # list
-        branches = "branch - a";
-        remotes = "remote - v";
-        tags = "tag - l"; # Show verbose output about tags, branches or remotes;
+        branches = "branch -a";
+        remotes = "remote -v";
+        tags = "tag -l"; # Show verbose output about tags, branches or remotes;
         conflicts = "!grep -lr '<<<<<<<' .";
         contributors = "shortlog --summary --numbered"; # List contributors with number of commits;
+
+        # gitlab
+        mr = "push -o merge_request.create -o merge_request.draft -o merge_request.target=dev";
       };
     };
 

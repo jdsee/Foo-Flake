@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mux = {
+      url = "github:willfish/mux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     systems.url = "github:nix-systems/default";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
@@ -37,25 +42,7 @@
     {
       packages.${system}.default = pkgs;
       formatter.${system} = pkgs.nixpkgs-fmt;
-      overlays = import ./overlays { inherit inputs; };
-
-      # apps.${system} = {
-      #   nvim = {
-      #     program = {
-      #       program = "${config.packages.neovim}/bin/nvim";
-      #       type = "app";
-      #     };
-      #   };
-      #
-      #   tmpvim = {
-      #     program = {
-      #       program = pkgs.writeShellScriptBin "tmpvim" ''
-      #         XDG_CONFIG_HOME=$(realpath .) ${config.packages.neovim}/bin/nvim
-      #       '';
-      #       type = "app";
-      #     };
-      #   };
-      # };
+      overlays = import ./overlays { inherit inputs; inherit system; };
 
       # nixos-rebuild switch --flake .#your-hostname
       # - Find conflicting HM file: journalctl -xe --unit home-manager-jdsee.service | grep 'is in the way'

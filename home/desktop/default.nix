@@ -45,7 +45,6 @@
     wdisplays
     wtype # automate typing input
     waylock # Screen-Lock
-    ydotool # automate user input (#TODO: why is wtype installed additionally?)
     nemo # filebrowser
   ];
 }

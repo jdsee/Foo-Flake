@@ -4,10 +4,13 @@
     ./claude-code
     ./git
     ./gpg.nix
+    ./herdr.nix
+    ./mux
     ./nushell.nix
     ./opencode.nix
-    ./tmux
+    ./pi.nix
     ./tinker
+    ./tmux
     ./vim.nix
     ./zsh
   ];
@@ -38,6 +41,7 @@
   home = {
     sessionVariables = {
       EDITOR = "nvim";
+      DIRENV_LOG_FORMAT = "";
     };
 
     packages = with pkgs; [

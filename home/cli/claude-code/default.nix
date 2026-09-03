@@ -8,14 +8,19 @@
     context = ./context.md;
     settings = {
       DISABLE_TELEMETRY = 1;
+      CLAUDE_CODE_NO_FLICKER = 1;
     };
     plugins = {
-      caveman = pkgs.fetchFromGitHub {
-        owner = "juliusbrussee";
-        repo = "caveman";
-        rev = "v1.9.1";
-        sha256 = "sha256-VqRHx3/4SSCnEh3cUJ/he5saIfwNhS0hOzoH/wwtU2o=";
-      };
+      # caveman = pkgs.fetchFromGitHub {
+      #   owner = "juliusbrussee";
+      #   repo = "caveman";
+      #   rev = "v1.9.1";
+      #   sha256 = "sha256-VqRHx3/4SSCnEh3cUJ/he5saIfwNhS0hOzoH/wwtU2o=";
+      # };
     };
+  };
+
+  home.sessionVariables = {
+    CLAUDE_CODE_NO_FLICKER = 1;
   };
 }

@@ -49,6 +49,27 @@
           ];
         };
       }
+      {
+        profile = {
+          name = "home-single";
+          outputs = [
+            {
+              criteria = "eDP-1";
+              position = "3840,1080";
+            }
+            {
+              criteria = "Dell Inc. DELL U3219Q 8P7R413";
+              position = "0,0";
+              mode = "3840x2160";
+            }
+          ];
+          exec = [
+            ''
+              notify-send "Activated display profile 'home-single'"
+            ''
+          ];
+        };
+      }
     ];
   };
 }

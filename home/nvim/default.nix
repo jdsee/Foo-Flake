@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix { };
@@ -60,5 +60,11 @@ in
       source = ./config/nvim;
       recursive = true;
     };
+
+    # Keep lazy-lock.json writable and tracked in the flake working tree so
+    # `:Lazy sync`/`:Lazy update` write through to it directly.
+    "nvim/lazy-lock.json".source =
+      config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/foo-flake/home/nvim/config/nvim/lazy-lock.json";
   };
 }

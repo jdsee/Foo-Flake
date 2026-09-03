@@ -1,27 +1,26 @@
-# /story
+---
+description: Write a German Jira story
+argument-hint: "<titel oder beschreibung>"
+---
 
-Write a German user story following requirements engineering best practices.
+Schreibe eine Jira Story: $ARGUMENTS
 
-## Usage
-```
-/story <title>
-```
+Die verbindlichen Regeln stehen in
+`~/projects/linked-planet/agent-comms/.claude/skills/jira/`. Lies zuerst
+`SKILL.md`, dann `references/story.md`. Halte dich an das, was dort steht, nicht
+an das, was du sonst über User Stories weißt.
 
-## Behavior
-1. Creates structured user story with title, story sentence, motivation, acceptance criteria, and optional hints
-2. Writes story to `stories/story-<sanitized-title>.md` 
-3. Offers to copy content to clipboard with wl-copy
-4. Uses concise, professional German language
-5. Follows format:
-   - ### [Title]
-   - Als [Rolle] möchte ich [Funktionalität], damit [Nutzen]
-   - ### Motivation
-   - ### Akzeptanzkriterien (numbered list)
-   - ### Hinweise (optional)
+Prüfe dabei die Entscheidungsregel: Ist das Verhalten neu oder nie spezifiziert
+gewesen, ist es eine Story. Funktioniert spezifiziertes Verhalten falsch, ist es
+ein Bug, dann nimm `/bug`.
 
-## Example
-```
-/story Statusfarb-Logik vom Backend ins Frontend verlagern
-```
+Kurzfassung, falls die Dateien nicht erreichbar sind:
 
-Creates story with clear intent, actionable criteria, and technical context.
+- Jira Markup, Überschriften als `h3.`
+- Abschnitte: `h3. Motivation`, `h3. Akzeptanzkriterien`, optional `h3. Hinweise`
+- Kein "Als [Rolle] möchte ich...", außer ausdrücklich verlangt
+- Akzeptanzkriterien als nummerierte Liste (`#`), jedes ein prüfbarer
+  Endzustand, keine Aufgabe
+
+Schreibe nach `stories/story-<slug>.md` und biete an, mit `wl-copy` in die
+Zwischenablage zu kopieren.

@@ -1,88 +1,82 @@
 -- treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter (main branch)
+--
+-- Migrated from the frozen `master` branch, which does not support Neovim 0.12.
+-- The `main` branch drops `nvim-treesitter.configs`: parsers are installed via
+-- `require('nvim-treesitter').install(...)` and highlighting is opt-in through
+-- `vim.treesitter.start()` (left off here, matching the old `highlight.enable = false`).
+
+local ensure_installed = {
+  'vim', 'vimdoc', 'lua', 'luadoc', 'query',
+  'html', 'javascript', 'typescript', 'svelte', 'vue', 'tsx',
+  'rescript', 'css', 'xml', 'php', 'markdown', 'markdown_inline',
+}
 
 return {
-  'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    -- 'nvim-treesitter/nvim-treesitter-context',
-    'rescript-lang/tree-sitter-rescript',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-context',
+      'rescript-lang/tree-sitter-rescript',
+    },
+    build = ':TSUpdate',
+    lazy = false,
+    config = function()
+      require('nvim-treesitter').setup()
+      require('nvim-treesitter').install(ensure_installed)
+    end,
   },
-  build = ':TSUpdate',
-  lazy = false,
-  config = function()
-    require('nvim-treesitter.configs').setup {
-      ensure_installed = {
-        'vim', 'vimdoc', 'lua', 'luadoc',
-        'html', 'javascript', 'typescript', 'svelte', 'vue', 'tsx', 'rescript', 'css', 'xml', 'php', 'markdown'
-      },
-      highlight = {
-        enable = true,
-      },
-      textobjects = {
+
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-treesitter-textobjects').setup {
         select = {
-          enable = true,
           lookahead = true,
-          keymaps = {
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-            ['aP'] = '@pipeline.outer',
-            ['iP'] = '@pipeline.inner',
-          }
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ['g>>'] = '@parameter.inner',
-            ['g>f'] = '@function.inner',
-          },
-          swap_previous = {
-            ['g<<'] = '@parameter.outer',
-            ['g<f'] = '@function.outer',
-          },
         },
         move = {
-          enable = true,
           set_jumps = true,
-          goto_next_start = {
-            [']m'] = '@function.outer',
-          },
-          goto_next_end = {
-            [']M'] = '@function.outer',
-          },
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-          },
-          goto_previous_end = {
-            ['[M'] = '@function.outer',
-          },
-          --
-          -- You can use regex matching (i.e. lua pattern) and/or pass a list in a 'query' key to group multiple queires.
-          [']o'] = '@loop.*',
         },
-      },
-    }
-  end,
+      }
 
-  opts = function(_, opts) -- this is needed so you won't override your default nvim-treesitter configuration
-    -- vim.list_extend(opts.ensure_installed, {
-    --   'rescript',
-    -- })
+      local select = require 'nvim-treesitter-textobjects.select'
+      local swap = require 'nvim-treesitter-textobjects.swap'
+      local move = require 'nvim-treesitter-textobjects.move'
 
-    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-    parser_config.rescript = {
-      install_info = {
-        url = 'https://github.com/rescript-lang/tree-sitter-rescript',
-        branch = 'main',
-        files = { 'src/scanner.c' },
-        generate_requires_npm = false,
-        requires_generate_from_grammar = true,
-        use_makefile = true, -- macOS specific instruction
-      },
-    }
-  end,
+      local function map(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { desc = desc, silent = true })
+      end
+
+      -- select
+      for _, m in ipairs { 'x', 'o' } do
+        map(m, 'aa', function() select.select_textobject('@parameter.outer', 'textobjects') end, 'parameter outer')
+        map(m, 'ia', function() select.select_textobject('@parameter.inner', 'textobjects') end, 'parameter inner')
+        map(m, 'af', function() select.select_textobject('@function.outer', 'textobjects') end, 'function outer')
+        map(m, 'if', function() select.select_textobject('@function.inner', 'textobjects') end, 'function inner')
+        map(m, 'ac', function() select.select_textobject('@class.outer', 'textobjects') end, 'class outer')
+        map(m, 'ic', function() select.select_textobject('@class.inner', 'textobjects') end, 'class inner')
+        map(m, 'aP', function() select.select_textobject('@pipeline.outer', 'textobjects') end, 'pipeline outer')
+        map(m, 'iP', function() select.select_textobject('@pipeline.inner', 'textobjects') end, 'pipeline inner')
+      end
+
+      -- swap
+      map('n', 'g>>', function() swap.swap_next('@parameter.inner') end, 'swap next parameter')
+      map('n', 'g>f', function() swap.swap_next('@function.inner') end, 'swap next function')
+      map('n', 'g<<', function() swap.swap_previous('@parameter.outer') end, 'swap prev parameter')
+      map('n', 'g<f', function() swap.swap_previous('@function.outer') end, 'swap prev function')
+
+      -- move
+      map({ 'n', 'x', 'o' }, ']m', function() move.goto_next_start('@function.outer', 'textobjects') end, 'next function start')
+      map({ 'n', 'x', 'o' }, ']M', function() move.goto_next_end('@function.outer', 'textobjects') end, 'next function end')
+      map({ 'n', 'x', 'o' }, '[m', function() move.goto_previous_start('@function.outer', 'textobjects') end, 'prev function start')
+      map({ 'n', 'x', 'o' }, '[M', function() move.goto_previous_end('@function.outer', 'textobjects') end, 'prev function end')
+      -- was a stray `[']o'] = '@loop.*'` under `move` on master (a no-op there);
+      -- wire it to loop start, which is the apparent intent.
+      map({ 'n', 'x', 'o' }, ']o', function() move.goto_next_start({ '@loop.inner', '@loop.outer' }, 'textobjects') end, 'next loop start')
+    end,
+  },
 }

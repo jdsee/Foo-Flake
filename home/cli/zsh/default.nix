@@ -71,14 +71,6 @@ in
 
       export PATH="$PATH:$HOME/bin:$HOME/.config/rofi/scripts:$HOME/.cargo/bin";
 
-      # Tmux Sessionizer
-      run_tmux_sessionizer() {
-        ~/.config/tmux/tmux-sessionizer.sh
-      }
-      zle -N run_tmux_sessionizer
-      bindkey -M emacs '^G' run_tmux_sessionizer
-      bindkey -M viins '^G' run_tmux_sessionizer
-
       # Autosuggest
       bindkey -M emacs '^O' autosuggest-accept
       bindkey -M viins '^O' autosuggest-accept
@@ -122,6 +114,7 @@ in
       vile = "nvim -c 'Telescope find_files'";
       fls = "nvim -c Oil";
       oil = "nvim -c Oil";
+      xarg = "xargs -rn1";
 
       ls = "exa";
       ll = "ls -alh";
@@ -147,8 +140,6 @@ in
 
       cbc = "xclip -sel clip";
       cbp = "xclip -o -sel clip";
-
-      mux = "tmuxinator";
 
       img = "qimgv";
       ed = "zeditor";

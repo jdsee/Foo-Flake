@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.tmux = {
     enable = true;
-    tmuxinator.enable = true;
+    # tmuxinator.enable = true;
     # package = pkgs.tmux-31c;
     extraConfig = builtins.readFile ./tmux.conf;
     keyMode = "vi";
@@ -21,10 +21,6 @@
   };
 
   xdg.configFile = {
-    "tmuxinator" = {
-      source = ./tmuxinator;
-      recursive = true;
-    };
     "tmux/tmux-sessionizer.sh" = {
       source = ./tmux-sessionizer.sh;
       executable = true;

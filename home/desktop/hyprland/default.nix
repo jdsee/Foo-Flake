@@ -41,6 +41,10 @@ in
 
       animations.enabled = false;
 
+      windowrule = [
+        "match:class ^(firefox)$, match:title ^(Extension: \\(Bitwarden Password Manager\\).*)$, float on, center on, size 500 650"
+      ];
+
       workspace = [
         # Primary monitor (workspaces 1-6)
         "1, monitor:desc:${config.monitors.primary}"
@@ -145,8 +149,8 @@ in
 
         # Screenshots
         "$mod, S, exec, ${flameshot} gui"
-        "$mod SHIFT, S, exec, shoot screen"
-        "$mod CTRL, S, exec, shoot raw"
+        "$mod CTRL, S, exec, shoot screen"
+        # "$mod CTRL, S, exec, shoot raw"
 
         # Theme toggle
         "$mod ALT, T, exec, toggle-theme"
@@ -160,8 +164,8 @@ in
         "$mod, P, focusmonitor, -1"
         "$mod SHIFT, N, movewindow, mon:+1"
         "$mod SHIFT, P, movewindow, mon:-1"
-        "$mod CTRL, N, movecurrentworkspacetomonitor, +1"
-        "$mod CTRL, P, movecurrentworkspacetomonitor, -1"
+        "$mod SHIFT, >, movecurrentworkspacetomonitor, +1"
+        "$mod SHIFT, <, movecurrentworkspacetomonitor, -1"
       ];
 
       bindl = [
